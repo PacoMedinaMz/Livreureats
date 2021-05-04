@@ -164,8 +164,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#F6F7FB",
-    paddingTop: 20,
+    paddingTop: 70,
     width: "100%",
+    padding: 20,
   },
   card: {
     backgroundColor: "white",

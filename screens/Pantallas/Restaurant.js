@@ -4,10 +4,21 @@ import { View, Text, StyleSheet } from "react-native";
 const Restaurant = () => {
     return (
         <View style={styles.container}>
-            <Text >
-                Restaurant
-            </Text>
-        </View>
+                <ScrollView>
+                    <TouchableOpacity style={styles.botoninfo} >
+                        <Card style={styles.Cardinf}>
+                            <Image style={styles.blurimg} source={require('../../assets/images/beb1.jpg')} resizeMode="cover" />
+                        </Card>
+                    </TouchableOpacity>
+
+                    {/*  onPress={() => navigation.navigate("Menucomida")} */}
+                    <TouchableOpacity style={styles.botoninfo}>
+                        <Card style={styles.Cardinf}>
+                            <Image style={styles.blurimg} source={require('../../assets/images/beb2.jpg')} resizeMode="cover" />
+                        </Card>
+                    </TouchableOpacity>
+                </ScrollView>
+            </View>
     )
 };
 

@@ -58,7 +58,6 @@ const Home = ({navigation}) => {
             </View>
 
             <View style={styles.info}>
-            {/* onPress={onPress }*/}
                 <TouchableOpacity style={styles.botoninfo} onPress={()=>navigation.navigate("Menucomida")}>
                     <Card style={styles.Cardinf}>
                         <Image style={styles.blurimg} source={require('../../assets/images/btn1.png')} resizeMode="cover" />
@@ -69,7 +68,7 @@ const Home = ({navigation}) => {
                 <TouchableOpacity style={styles.botoninfo} onPress={()=>navigation.navigate("Menurest")}>
                     <Card style={styles.Cardinf}> 
                         <Image style={styles.blurimg} source={require('../../assets/images/btn2.png')} resizeMode="cover" />
-                        <Text style={styles.textinfo}>Restaurant</Text>
+                        <Text style={styles.textinfo2}>Restaurantes</Text>
                     </Card>
                 </TouchableOpacity>
 
@@ -98,6 +97,14 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginRight: 200,
         fontSize: 25,
+        color: '#fff',
+    },
+
+    textinfo2: {
+        alignSelf: 'center',
+        marginTop: 43,
+        marginRight: 200,
+        fontSize: 20,
         color: '#fff',
     },
 
@@ -176,7 +183,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignContent: 'center',
         marginTop: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FF8400'
     },
 
     sliderContainer: {

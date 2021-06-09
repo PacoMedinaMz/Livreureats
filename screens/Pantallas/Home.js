@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, } from "react-native";
-import Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper/src';
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
-import Restaurant from '../../screens/Pantallas/Restaurant';
 
 const Home = ({navigation}) => {
     return (

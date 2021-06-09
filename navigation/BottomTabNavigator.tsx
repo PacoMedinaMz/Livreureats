@@ -19,6 +19,8 @@ import Postres from '../screens/Pantallas/Postres';
 import Bebidas from '../screens/Pantallas/Bebidas';
 import Menurest from '../screens/Pantallas/Menurest';
 import Menucomida from '../screens/Pantallas/Menucomida';
+import GraficasScreen from '../screens/Graficas/GraficasScreen';
+import Opciones from '../screens/Pantallas/Opciones';
 
 
 
@@ -39,6 +41,17 @@ export default function BottomTabNavigator({ navigation }: { navigation: any }) 
         }
       }}>
       <BottomTab.Screen
+        name="Opciones"
+        component={Opciones}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons name="settings" size={24} color={focused ? "#fff" : '#A8A8A8'} />
+
+          )
+        }}
+      />
+
+      <BottomTab.Screen
         name="TabOne"
         component={TabOneNavigator}
         options={{
@@ -48,11 +61,11 @@ export default function BottomTabNavigator({ navigation }: { navigation: any }) 
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Graphs"
+        component={GraficasScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons name="food-fork-drink" size={24} color={focused ? "#fff" : '#A8A8A8'} />
+            <Entypo name="area-graph" size={24} color={focused ? "#fff" : '#A8A8A8'} />
           )
         }}
       />
@@ -123,7 +136,6 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
           }
         }} />
 
-
       {/* Config Tab Comida Rapida */}
       <TabOneStack.Screen
         name="Comrapida"
@@ -152,6 +164,8 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
             backgroundColor: '#FF6347'
           }
         }} />
+
+    
 
       {/* Config Tab Postres */}
       <TabOneStack.Screen
@@ -240,7 +254,7 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
           }
         }} />
 
-        {/* Config Tab Menu restaurantes */}
+      {/* Config Tab Menu restaurantes */}
       <TabOneStack.Screen
         name="Menurest"
         component={Menurest}

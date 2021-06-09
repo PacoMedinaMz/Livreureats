@@ -17,7 +17,9 @@ export default {
             screens: {
               TabTwoScreen: 'Restaurant',
             },
+            
           },
+         
         },
       },
       NotFound: '*',

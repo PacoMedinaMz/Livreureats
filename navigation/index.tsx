@@ -14,6 +14,7 @@ import Comrapida from "../screens/Pantallas/Comrapida";
 import HomeRest from "../screens/Pantallas/HomeRest";
 import Menucomida from "../screens/Pantallas/Menucomida";
 import Menurest from "../screens/Pantallas/Menurest";
+import Opciones from "../screens/Pantallas/Opciones";
 import Orden from "../screens/Pantallas/Orden";
 import Postres from "../screens/Pantallas/Postres";
 import Restaurant from "../screens/Pantallas/Restaurant";
@@ -52,6 +53,7 @@ function RootNavigator() {
       <Stack.Screen name="HomeRest" component={HomeRest} />
       <Stack.Screen name="Menurest" component={Menurest} />
       <Stack.Screen name="Menucomida" component={Menucomida} />
+      <Stack.Screen name="Opciones" component={Opciones} />  
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

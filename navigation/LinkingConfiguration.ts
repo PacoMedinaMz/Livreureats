@@ -18,6 +18,11 @@ export default {
               TabTwoScreen: 'Restaurant',
             },
           },
+          Signin:{
+            screens:{
+              Restaurant: 'Restaurant',
+            }
+          },
         },
       },
       NotFound: '*',

@@ -1,34 +1,30 @@
-/**
- * Learn more about createBottomTabNavigator:
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 import { Entypo } from '@expo/vector-icons';
 import { IconButton } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Componentes
-import Home from '../screens/Home';
-import HomeRest from '../screens/HomeRest';
-import Orden from '../screens/Orden';
-import Restaurant from '../screens/Restaurant';
+import Home from '../screens/Pantallas/Home';
+import Restaurant from '../screens/Pantallas/Restaurant';
+import TabTwoScreen from '../screens/TabTwoScreen';
+import Signin from '../screens/Pantallas/Signin';
+import Comrapida from '../screens/Pantallas/Comrapida';
+import Postres from '../screens/Pantallas/Postres';
+import Bebidas from '../screens/Pantallas/Bebidas';
+import Menurest from '../screens/Pantallas/Menurest';
+import Menucomida from '../screens/Pantallas/Menucomida';
+
 
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
+export default function BottomTabNavigator({ navigation }: { navigation: any }) {
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
@@ -46,9 +42,9 @@ export default function BottomTabNavigator() {
         name="TabOne"
         component={TabOneNavigator}
         options={{
-          
+
           tabBarIcon: ({ focused }) => (
-            <Entypo name="home" size={24} color={focused ? "#fff" : '#A8A8A8'} />),          
+            <Entypo name="home" size={24} color={focused ? "#fff" : '#A8A8A8'} />),
         }}
       />
       <BottomTab.Screen
@@ -64,17 +60,12 @@ export default function BottomTabNavigator() {
   );
 }
 
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
-function TabOneNavigator() {
+function TabOneNavigator({ navigation }: { navigation: any }) {
   return (
     <TabOneStack.Navigator>
+      {/* Config Tab Home */}
       <TabOneStack.Screen
         name="TabOneScreen"
         component={Home}
@@ -84,26 +75,14 @@ function TabOneNavigator() {
           ),
           headerRight: () => (
             <View style={{ marginRight: 10 }}>
+
               <IconButton
                 icon="account"
                 size={28}
                 color="#fff"
-              // onPress={()=>navigation.openDrawer()}
+                onPress={() => navigation.navigate("Signin")}
               />
             </View>
-
-          ),
-          headerLeft: () => (
-            <View style={{ marginLeft: 10 }}>
-              <IconButton
-                icon="menu"
-                // name="menu"
-                size={28}
-                color="#fff"
-              // onPress={()=>navigation.openDrawer()}
-              />
-            </View>
-
           ),
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -114,41 +93,205 @@ function TabOneNavigator() {
             backgroundColor: '#FF6347'
           }
         }} />
-    </TabOneStack.Navigator>
+
+      {/* Config Tab Restaurant */}
+      <TabOneStack.Screen
+        name="Restaurant"
+        component={Restaurant}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+
+      {/* Config Tab Comida Rapida */}
+      <TabOneStack.Screen
+        name="Comrapida"
+        component={Comrapida}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* Config Tab Postres */}
+      <TabOneStack.Screen
+        name="Postres"
+        component={Postres}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* Config Tab Bebidas */}
+      <TabOneStack.Screen
+        name="Bebidas"
+        component={Bebidas}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* Config Tab Menu comida */}
+      <TabOneStack.Screen
+        name="Menucomida"
+        component={Menucomida}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+        {/* Config Tab Menu restaurantes */}
+      <TabOneStack.Screen
+        name="Menurest"
+        component={Menurest}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+    </TabOneStack.Navigator >
   );
 }
 
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
-function TabTwoNavigator() {
+function TabTwoNavigator({ navigation }: { navigation: any }) {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={Restaurant}
+        name="Signin"
+        component={Signin}
         options={{
           headerTitle: () => (
             <View style={styles.Title}><Text style={styles.Title}>Livreureats</Text></View>
           ),
           headerRight: () => (
             <View style={{ marginRight: 10 }}>
+
               <IconButton
                 icon="account"
                 size={28}
                 color="#fff"
-              // onPress={()=>navigation.openDrawer()}
-              />
-            </View>
-
-          ),
-          headerLeft: () => (
-            <View style={{ marginLeft: 10 }}>
-              <IconButton
-                icon="menu"
-                // name="menu"
-                size={28}
-                color="#fff"
-              // onPress={()=>navigation.openDrawer()}
+                onPress={() => navigation.navigate("Signin")}
               />
             </View>
 
@@ -182,7 +325,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignContent: 'center',
     fontWeight: 'bold',
+    marginLeft: 25,
+  },
 
+  TitleAlt: {
+    fontSize: 25,
+    color: '#fff',
+    alignSelf: 'center',
+    alignContent: 'center',
+    fontWeight: 'bold',
+    marginRight: 25,
   },
 
 

@@ -21,6 +21,7 @@ import Menurest from '../screens/Pantallas/Menurest';
 import Menucomida from '../screens/Pantallas/Menucomida';
 import GraficasScreen from '../screens/Graficas/GraficasScreen';
 import Opciones from '../screens/Pantallas/Opciones';
+import Orden from '../screens/Pantallas/Orden';
 
 
 
@@ -111,6 +112,35 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
       <TabOneStack.Screen
         name="Restaurant"
         component={Restaurant}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+        {/* Config Tab Orden*/}
+      <TabOneStack.Screen
+        name="Orden"
+        component={Orden}
         options={{
           headerTitle: () => (
             <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>

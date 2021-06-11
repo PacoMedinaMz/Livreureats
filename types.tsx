@@ -40,6 +40,7 @@ export type TabOneParamList = {
   Menu: undefined;
   Menucomida: undefined;
   Opciones: undefined;
+  Orden: undefined;
 };
 
 export type TabTwoParamList = {
@@ -56,4 +57,5 @@ export type TabTwoParamList = {
   Menurest: undefined;
   Menu: undefined;
   Opciones: undefined;
+  
 };

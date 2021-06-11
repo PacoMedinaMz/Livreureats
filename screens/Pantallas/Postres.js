@@ -1,24 +1,30 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
+import Cardx from './Cardx';
+import { FlatList } from 'react-native-gesture-handler';
+import { postre } from './data';
 
-const Postres = () => {
+const Postres = ({ navigation }) => {
+
+    const renderItem = ({ item }) => {
+        return (
+            <Cardx itemData={item}
+                onPress={() => { }} />
+        );
+    }
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <TouchableOpacity style={styles.botoninfo} >
-                    <Card style={styles.Cardinf}>
-                        <Image style={styles.blurimg} source={require('../../assets/images/post1.jpg')} resizeMode="cover" />
-                    </Card>
-                </TouchableOpacity>
-
-                {/*  onPress={() => navigation.navigate("Menucomida")} */}
-                <TouchableOpacity style={styles.botoninfo}>
-                    <Card style={styles.Cardinf}>
-                        <Image style={styles.blurimg} source={require('../../assets/images/post2.jpg')} resizeMode="cover" />
-                    </Card>
-                </TouchableOpacity>
-            </ScrollView>
+            <View>
+                <Card style={styles.CardTitle}>
+                    <Text style={styles.TitleCard}>Postres</Text>
+                </Card>
+                <FlatList
+                    data={postre}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+            </View>
         </View>
     )
 };
@@ -32,7 +38,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: '#fff',
     },
+    CardTitle: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: '#EA593F',
+        alignSelf: 'center',
+        width: 250,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+    },
 
+    TitleCard: {
+        fontSize: 25,
+        color: '#fff',
+        alignSelf: 'center',
+        alignContent: 'center',
+        fontWeight: 'bold',
+    },
     Title: {
         fontSize: 25,
         color: '#fff',
@@ -78,7 +100,7 @@ const styles = StyleSheet.create({
         margin: 15,
         marginTop: 20,
         paddingBottom: 4,
-        
+
     },
 
     botoninfo: {
@@ -86,7 +108,7 @@ const styles = StyleSheet.create({
         height: 100,
         alignSelf: 'center',
         margin: 15,
-        
+
     },
 
 });

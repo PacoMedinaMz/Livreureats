@@ -1,24 +1,30 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
+import Cardx from './Cardx';
+import { FlatList } from 'react-native-gesture-handler';
+import { bebida, menu } from './data';
 
-const Menucomida = () => {
+const Menucomida = ({ navigation }) => {
+   
+    const renderItem = ({ item }) => {
+        return (
+            <Cardx itemData={item}
+                onPress={() => { }} />
+        );
+    }
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <TouchableOpacity style={styles.botoninfo} >
-                    <Card style={styles.Cardinf}>
-                        <Image style={styles.blurimg} source={require('../../assets/images/ff1.jpg')} resizeMode="cover" />
-                    </Card>
-                </TouchableOpacity>
-
-                {/*  onPress={() => navigation.navigate("Menucomida")} */}
-                <TouchableOpacity style={styles.botoninfo}>
-                    <Card style={styles.Cardinf}>
-                        <Image style={styles.blurimg} source={require('../../assets/images/ff2.jpg')} resizeMode="cover" />
-                    </Card>
-                </TouchableOpacity>
-            </ScrollView>
+            <View>
+                <Card style={styles.CardTitle}>
+                    <Text style={styles.TitleCard}>Menú</Text>
+                </Card>
+                <FlatList
+                    data={menu}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+            </View>
         </View>
     )
 };
@@ -26,6 +32,23 @@ const Menucomida = () => {
 export default Menucomida;
 
 const styles = StyleSheet.create({
+    CardTitle: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: '#EA593F',
+        alignSelf: 'center',
+        width: 250,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+    },
+
+    TitleCard: {
+        fontSize: 25,
+        color: '#fff',
+        alignSelf: 'center',
+        alignContent: 'center',
+        fontWeight: 'bold',
+    },
     container: {
         backgroundColor: "#fff",
         flex: 1,
@@ -77,7 +100,7 @@ const styles = StyleSheet.create({
         margin: 15,
         marginTop: 20,
         paddingBottom: 4,
-        
+
     },
 
     botoninfo: {
@@ -85,7 +108,7 @@ const styles = StyleSheet.create({
         height: 100,
         alignSelf: 'center',
         margin: 15,
-        
+
     },
 
 });

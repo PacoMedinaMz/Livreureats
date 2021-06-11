@@ -9,18 +9,7 @@ export default function GraficasScreen(props: any) {
   const dataSemana = [700, 500, 550, 600, 530, 800, 600];
   const dataMes = [1800, 2400, 1300, 2000];
   const dataAnio = [
-    3000,
-    2000,
-    4000,
-    2800,
-    3500,
-    2300,
-    3000,
-    3500,
-    2900,
-    3100,
-    3100,
-    2500,
+    3000, 2000, 4000, 2800, 3500, 2300, 3000, 3500, 2900, 3100, 3100, 2500,
   ];
 
   const [selected, setSelected] = useState(3);
@@ -92,6 +81,7 @@ export default function GraficasScreen(props: any) {
         <View
           style={{
             width: "50%",
+            backgroundColor: "transparent",
           }}
         >
           <Text style={styles.header}>Menor: {minimo}</Text>
@@ -100,6 +90,7 @@ export default function GraficasScreen(props: any) {
         <View
           style={{
             width: "50%",
+            backgroundColor: "transparent",
           }}
         >
           <Text style={styles.header}>Mayor: {maximo}</Text>
@@ -111,6 +102,7 @@ export default function GraficasScreen(props: any) {
             height: 200,
             flexDirection: "row",
             marginTop: 20,
+            backgroundColor: "transparent",
           }}
         >
           <YAxis
@@ -135,6 +127,7 @@ export default function GraficasScreen(props: any) {
         <View
           style={{
             width: "100%",
+            backgroundColor: "transparent",
           }}
         >
           <XAxis
@@ -150,6 +143,7 @@ export default function GraficasScreen(props: any) {
           style={{
             width: "100%",
             paddingTop: 20,
+            backgroundColor: "transparent",
           }}
         >
           <Text style={styles.footer}>Gráfica basada en ventas</Text>
@@ -167,6 +161,7 @@ const styles = StyleSheet.create({
     paddingTop: 70,
     width: "100%",
     padding: 20,
+    justifyContent: "center",
   },
   card: {
     backgroundColor: "white",

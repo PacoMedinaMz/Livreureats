@@ -21,6 +21,8 @@ export default function InputMessage(props: any) {
         returnKeyType="next"
         onFocus={() => props.onFocus()}
         onTouchStart={() => props.onFocus()}
+        selectionColor="#FF6347"
+        underlineColorAndroid="transparent"
       />
 
       <TouchableOpacity

@@ -12,7 +12,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 // Componentes
 import Home from '../screens/Pantallas/Home';
 import Restaurant from '../screens/Pantallas/Restaurant';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import Signin from '../screens/Pantallas/Signin';
 import Comrapida from '../screens/Pantallas/Comrapida';
 import Postres from '../screens/Pantallas/Postres';
@@ -81,7 +80,7 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
     <TabOneStack.Navigator>
       {/* Config Tab Home */}
       <TabOneStack.Screen
-        name="TabOneScreen"
+        name="Home"
         component={Home}
         options={{
           headerTitle: () => (
@@ -137,7 +136,36 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
           }
         }} />
 
-        {/* Config Tab Orden*/}
+      {/* Config Tab Restaurant */}
+      <TabOneStack.Screen
+        name="Signin"
+        component={Signin}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* Config Tab Orden*/}
       <TabOneStack.Screen
         name="Orden"
         component={Orden}
@@ -195,7 +223,7 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
           }
         }} />
 
-    
+
 
       {/* Config Tab Postres */}
       <TabOneStack.Screen

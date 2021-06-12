@@ -4,12 +4,12 @@ import { TextInput, Card } from "react-native-paper";
 
 
 
-const Signin = ({ navigation }) => {
+const SigninRest = ({ navigation }) => {
     // Aqui declaro las variables que se usan en los inputs
 
     //Nombre
     const [nombre, setNombre] = React.useState("");
-    const [apellido, setAp] = React.useState("");
+    const [restaurante, setRes] = React.useState("");
     const [celular, setcel] = React.useState("");
 
     //Funcion que envia los datos
@@ -18,14 +18,14 @@ const Signin = ({ navigation }) => {
 
         //Nombre
         const [nombre, setNombre] = React.useState("");
-        const [apellido, setAp] = React.useState("");
+        const [restaurante, setRes] = React.useState("");
         const [celular, setcel] = React.useState("");
 
         //Funcion que envia los datos
         function Enviar() {
-            let data = {
+            let datares = {
                 nombre: nombre,
-                apellido: apellido,
+                restaurante: restaurante,
                 celular: celular,
             };
 
@@ -43,36 +43,34 @@ const Signin = ({ navigation }) => {
         }
     }
 
-    //ALERT
-    const Enviado = () =>
-        Alert.alert(
-            "Registrado",
-            "Tu cuenta ha sido registrada exitosamente",
-            [
-                {
-                    text: "Regresar",
-                    onPress: () =>  navigation.goBack(),
-                    style: "cancel"
-                },
-                { text: "Continuar", onPress: () => navigation.navigate("Login")}
-            ]
-        );
-        
+       //ALERT
+       const Enviado = () =>
+       Alert.alert(
+        "¡Restaurante registrado!",
+           "Tu Restaurante ha sido registrado exitosamente",
+           [
+               {
+                   text: "Regresar",
+                   onPress: () =>  navigation.goBack(),
+                   style: "cancel"
+               },
+               { text: "Continuar", onPress: () => navigation.navigate("Login")}
+           ]
+       );
+       
     return (
-
-
         <View style={styles.container}>
             <View style={styles.stack}>
-                <Text style={styles.Title}>Registro Usuario</Text>
+                <Text style={styles.Title}>Registro Restaurante</Text>
             </View>
             <Card style={styles.card}>
 
                 <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
-                <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} keyboardType={"default"}
+                <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Propietario"} keyboardType={"default"}
                     style={styles.forminput}
                 />
 
-                <TextInput onChangeText={(foo) => { setAp(foo); }} value={apellido} placeholder={"Apellido"} keyboardType={"default"}
+                <TextInput onChangeText={(foo) => { setRes(foo); }} value={restaurante} placeholder={"Restaurante"} keyboardType={"default"}
                     style={styles.forminput}
                 />
 
@@ -80,31 +78,21 @@ const Signin = ({ navigation }) => {
 
                 <View style={styles.botones}>
 
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
                         <Text style={styles.btnTxt}>Regresar</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
-                        <Text style={styles.btnTxt}>Enviar</Text>
+                        <Text style={styles.btnTxt}>Registrarse</Text>
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.Login}>
-                    <Text style={styles.btnTxt}>¿Ya estas registrado?</Text>
-                </TouchableOpacity>
-
-                <View><Text style={styles.Titletxt2}>¿Tienes un restaurante?</Text></View>
-                <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("SigninRest")}>
-                    <Image style={styles.blurimg} source={require('../../assets/images/rest1.jpg')} resizeMode="cover" />
-                    <Text style={styles.textinfo2}>Registro Restaurantes</Text>
-                </TouchableOpacity>
             </Card>
-
         </View>
     )
 };
 
-export default Signin;
+export default SigninRest;
 
 const styles = StyleSheet.create({
     container: {
@@ -112,18 +100,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
 
-    botones: {
+    botones:{
         flexDirection: "row",
         alignSelf: 'center',
     },
 
     card: {
         width: 380,
-        height: 700,
+        height: 450,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
-        marginTop: 20,
+        marginTop: 120,
         borderRadius: 25,
         borderColor: '#D9D9D9',
         borderBottomWidth: 2,
@@ -232,7 +220,7 @@ const styles = StyleSheet.create({
         paddingTop: 0,
         paddingVertical: 10,
         marginTop: 30,
-
+   
     },
     Login: {
         width: "50%",

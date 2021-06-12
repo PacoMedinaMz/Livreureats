@@ -18,7 +18,10 @@ export type RootStackParamList = {
   Menu: undefined;
   Menucomida: undefined;
   Graphs: undefined;
+  Home: undefined;
   Opciones: undefined;
+  Login: undefined;
+  SigninRest: undefined;
 };
 
 export type BottomTabParamList = {
@@ -27,6 +30,9 @@ export type BottomTabParamList = {
   Settings: undefined;
   Graphs: undefined;
   Opciones: undefined;
+  Home: undefined;
+  Login: undefined;
+  SigninRest: undefined;
 };
 
 export type TabOneParamList = {
@@ -41,6 +47,9 @@ export type TabOneParamList = {
   Menucomida: undefined;
   Opciones: undefined;
   Orden: undefined;
+  Home: undefined;
+  Login: undefined;
+  SigninRest: undefined;
 };
 
 export type TabTwoParamList = {
@@ -57,5 +66,7 @@ export type TabTwoParamList = {
   Menurest: undefined;
   Menu: undefined;
   Opciones: undefined;
-  
+  Home: undefined;
+  Login: undefined;
+  SigninRest: undefined;
 };

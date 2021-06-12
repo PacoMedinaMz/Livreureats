@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import * as Device from "expo-device";
 
 export default function Mensaje(props: any) {
-  let nombreDispositivo: string = "Rodrigo";
+  let nombreDispositivo: string = Device.deviceName || "Usuario";
 
   return (
     <View style={styles.container}>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   mensajeYo: {
-    backgroundColor: "#056162",
+    backgroundColor: "#FF6347",
     alignSelf: "flex-end",
   },
   mensajeEl: {

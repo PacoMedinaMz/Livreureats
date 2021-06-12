@@ -4,27 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import InputMessage from "../../components/Chat/InputMessage";
 import Mensaje from "../../components/Chat/Mensaje";
 import io from "socket.io-client";
-
-/*declare var io: {
-  connect(url: string): Socket;
-};
-interface Socket {
-  on(event: string, callback: (data: any) => void): void;
-  emit(event: string, data: any): void;
-}*/
-
-let mensajes: any = [
-  {
-    autor: "Administrador",
-    texto: "Para servirte.",
-    fecha: "9:27 p.m",
-  },
-  {
-    autor: "Rodrigo",
-    texto: "Gracias",
-    fecha: "9:27 p.m",
-  },
-];
+import * as Device from "expo-device";
 
 const Opciones = () => {
   const [mensajes, setMensajes] = React.useState([]);
@@ -44,7 +24,7 @@ const Opciones = () => {
   function submitChatMessage(text: string) {
     //Creamos el objeto que será enviado al socket.
     let msg = {
-      autor: "React", //Por esto salía undefined
+      autor: Device.deviceName,
       texto: text,
       fecha: getDateFormat(),
     };
@@ -80,7 +60,6 @@ const Opciones = () => {
       >
         {mensajes &&
           mensajes.map((msg: any, i: number) => {
-            console.log("Ciclo:", msg);
             return [<Mensaje mensaje={msg} key={i} />];
           })}
       </ScrollView>

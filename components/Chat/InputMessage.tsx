@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Text, View } from "../../components/Themed";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function InputMessage(props: any) {
   const [text, setText] = React.useState("");
@@ -17,12 +18,13 @@ export default function InputMessage(props: any) {
         keyboardType={"default"}
         style={{
           width: "80%",
+          backgroundColor: "transparent",
         }}
         returnKeyType="next"
         onFocus={() => props.onFocus()}
         onTouchStart={() => props.onFocus()}
         selectionColor="#FF6347"
-        underlineColorAndroid="transparent"
+        underlineColorAndroid="#C4C4C4"
       />
 
       <TouchableOpacity
@@ -32,27 +34,27 @@ export default function InputMessage(props: any) {
         }}
         style={{
           width: "20%",
-          backgroundColor: "green",
-          alignSelf: "center",
-          alignContent: "center",
-          alignItems: "center",
-          paddingTop: 5,
-          paddingBottom: 15,
+          backgroundColor: "transparent",
         }}
       >
-        <Text
+        <View
           style={{
-            width: "100%",
-            color: "#fff",
-            textAlign: "center",
-            paddingTop: 15,
-            paddingBottom: 8,
-            fontWeight: "bold",
-            fontSize: 17,
+            backgroundColor: "green",
+            alignSelf: "center",
+            alignContent: "center",
+            alignItems: "center",
+            padding: 10,
+            borderRadius: 100,
           }}
         >
-          Enviar
-        </Text>
+          <MaterialCommunityIcons
+            size={30}
+            name="send"
+            style={{
+              color: "white",
+            }}
+          />
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -61,7 +63,7 @@ export default function InputMessage(props: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#E0E0E0",
     alignItems: "center",
     flexDirection: "row",
   },

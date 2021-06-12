@@ -29,6 +29,8 @@ const Opciones = () => {
   }, []);
 
   function submitChatMessage(text: string) {
+    //Si no escribió un mensaje, ignoramos
+    if (text.length <= 0) return;
     //Creamos el objeto que será enviado al socket.
     let msg = {
       autor: Device.deviceName,

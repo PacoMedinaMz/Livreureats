@@ -49,10 +49,6 @@ const Opciones = () => {
         <Text style={styles.Title}>Soporte en vivo</Text>
       </View>
 
-      <View style={{ width: "100%", height: 64 }}>
-        <InputMessage onSubmit={(text: string) => submitChatMessage(text)} />
-      </View>
-
       <ScrollView
         style={{
           width: "100%",
@@ -63,6 +59,20 @@ const Opciones = () => {
             return [<Mensaje mensaje={msg} key={i} />];
           })}
       </ScrollView>
+
+      <View style={{ paddingBottom: 70 }}></View>
+
+      <View
+        style={{
+          width: "100%",
+          height: 64,
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+        }}
+      >
+        <InputMessage onSubmit={(text: string) => submitChatMessage(text)} />
+      </View>
     </View>
   );
 };

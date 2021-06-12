@@ -4,12 +4,13 @@ import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native
 import { bebida, data } from '../Pantallas/data';
 import Cardx from './Cardx';
 import { FlatList } from 'react-native-gesture-handler';
-const Bebidas = ({ navigation }) => {
+
+const Bebidas = ({navigation}) => {
 
     const renderItem = ({ item }) => {
         return (
             <Cardx itemData={item}
-                onPress={() => { }} />
+                onPress={() => navigation.navigate('Orden', {itemData: item})} />
         );
     }
     return (

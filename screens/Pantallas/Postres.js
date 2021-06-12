@@ -10,7 +10,7 @@ const Postres = ({ navigation }) => {
     const renderItem = ({ item }) => {
         return (
             <Cardx itemData={item}
-                onPress={() => { }} />
+            onPress={() => navigation.navigate('Orden', {itemData: item})} />
         );
     }
     return (

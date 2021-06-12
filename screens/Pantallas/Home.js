@@ -4,7 +4,7 @@ import Swiper from 'react-native-swiper/src';
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
     return (
         <View style={styles.container}>
 
@@ -32,24 +32,18 @@ const Home = ({navigation}) => {
 
 
             <View style={styles.opciones}>
-                <TouchableOpacity style={styles.boton}  onPress={()=>navigation.navigate("Comrapida")}>
-                    <Card style={styles.Cardmenu}>
-                        <MaterialIcons style={styles.icon} name="fastfood" size={40} color="black" />
-                    </Card>
+                <TouchableOpacity style={styles.Cardmenu} onPress={() => navigation.navigate("Comrapida")}>
+                    <MaterialIcons style={styles.icon} name="fastfood" size={40} color="black" />
                     <Text style={styles.texticon}>Comida Rápida</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.boton} onPress={()=>navigation.navigate("Postres")}>
-                    <Card style={styles.Cardmenu}>
-                        <MaterialIcons style={styles.icon} name="icecream" size={40} color="black" />
-                    </Card>
+                <TouchableOpacity style={styles.Cardmenu} onPress={() => navigation.navigate("Postres")}>
+                    <MaterialIcons style={styles.icon} name="icecream" size={40} color="black" />
                     <Text style={styles.texticon}>Postres</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.boton} onPress={()=>navigation.navigate("Bebidas")} >
-                    <Card style={styles.Cardmenu}>
-                        <MaterialIcons style={styles.icon} name="emoji-food-beverage" size={40} color="black" />
-                    </Card>
+                <TouchableOpacity style={styles.Cardmenu} onPress={() => navigation.navigate("Bebidas")} >
+                    <MaterialIcons style={styles.icon} name="emoji-food-beverage" size={40} color="black" />
                     <Text style={styles.texticon}>Bebidas</Text>
                 </TouchableOpacity>
 
@@ -58,18 +52,14 @@ const Home = ({navigation}) => {
             </View>
 
             <View style={styles.info}>
-                <TouchableOpacity style={styles.botoninfo} onPress={()=>navigation.navigate("Menucomida")}>
-                    <Card style={styles.Cardinf}>
+                <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("Menucomida")}>
                         <Image style={styles.blurimg} source={require('../../assets/images/btn1.png')} resizeMode="cover" />
                         <Text style={styles.textinfo}>Menú</Text>
-                    </Card>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.botoninfo} onPress={()=>navigation.navigate("Menurest")}>
-                    <Card style={styles.Cardinf}> 
+                <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("Menurest")}>
                         <Image style={styles.blurimg} source={require('../../assets/images/btn2.png')} resizeMode="cover" />
                         <Text style={styles.textinfo2}>Restaurantes</Text>
-                    </Card>
                 </TouchableOpacity>
 
             </View>
@@ -88,7 +78,7 @@ const styles = StyleSheet.create({
 
     texticon: {
         alignSelf: 'center',
-        marginTop: 5,
+        marginTop: 35,
         color: '#FF6347',
     },
 
@@ -125,17 +115,12 @@ const styles = StyleSheet.create({
         margin: 8,
     },
 
-    botoninfo: {
-        width: 350,
-        height: 100,
-        alignSelf: 'center',
-        margin: 15,
-    },
 
     icon: {
         alignSelf: 'center',
         marginTop: 5,
         color: '#FF6347',
+
     },
 
     opciones: {
@@ -159,6 +144,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.2,
         borderRightWidth: 1.2,
         borderColor: '#D9D9D9',
+        margin: 5,
 
     },
     Cardinf: {
@@ -167,8 +153,7 @@ const styles = StyleSheet.create({
         width: 350,
         height: 100,
         alignSelf: 'center',
-        margin: 15,
-        marginTop: 20,
+        marginTop: 40,
     },
 
     CardtitleText: {

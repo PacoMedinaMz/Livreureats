@@ -35,6 +35,66 @@ let mensajes: any = [
     texto: "Hola soy un mensaje",
     fecha: "9:27 p.m",
   },
+  {
+    autor: "Administrador",
+    texto: "Para servirte.",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Rodrigo",
+    texto: "Gracias",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Administrador",
+    texto: "Muy bien Rodrigo. Si gustas algo no olvides contactarnos.",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Rodrigo",
+    texto: "Nada solamente estoy viendo",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Administrador",
+    texto: "Buen día. ¿En qué te podemos ayudar?",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Rodrigo",
+    texto: "Hola soy un mensaje",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Administrador",
+    texto: "Para servirte.",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Rodrigo",
+    texto: "Gracias",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Administrador",
+    texto: "Muy bien Rodrigo. Si gustas algo no olvides contactarnos.",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Rodrigo",
+    texto: "Nada solamente estoy viendo",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Administrador",
+    texto: "Buen día. ¿En qué te podemos ayudar?",
+    fecha: "9:27 p.m",
+  },
+  {
+    autor: "Rodrigo",
+    texto: "Hola soy un mensaje",
+    fecha: "9:27 p.m",
+  },
 ];
 
 const Opciones = () => {
@@ -44,7 +104,7 @@ const Opciones = () => {
         <Text style={styles.Title}>Soporte en vivo</Text>
       </View>
 
-      <View style={{ width: "100%", paddingTop: 32 }}>
+      <View style={{ width: "100%", height: 64 }}>
         <InputMessage
           onSubmit={(text: string) => {
             console.log(text);
@@ -55,7 +115,6 @@ const Opciones = () => {
       <ScrollView
         style={{
           width: "100%",
-          paddingTop: 50,
         }}
       >
         {mensajes &&

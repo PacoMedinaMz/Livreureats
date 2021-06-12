@@ -12,7 +12,7 @@ const Opciones = () => {
 
   React.useEffect(() => {
     //Nos conectamos al socket
-    let sock: any = io("http://192.168.1.100:3000");
+    let sock: any = io("http://m.rmaafs.com:3500");
     setSocket(sock);
 
     //Al recibir algún mensaje...

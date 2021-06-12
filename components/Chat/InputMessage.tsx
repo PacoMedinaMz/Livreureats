@@ -32,7 +32,8 @@ export default function InputMessage(props: any) {
           alignSelf: "center",
           alignContent: "center",
           alignItems: "center",
-          paddingVertical: 10,
+          paddingTop: 5,
+          paddingBottom: 15,
         }}
       >
         <Text

@@ -19,6 +19,8 @@ export default function InputMessage(props: any) {
           width: "80%",
         }}
         returnKeyType="next"
+        onFocus={() => props.onFocus()}
+        onTouchStart={() => props.onFocus()}
       />
 
       <TouchableOpacity

@@ -10,6 +10,8 @@ const Opciones = () => {
   const [mensajes, setMensajes] = React.useState([]);
   const [socket, setSocket] = React.useState<any>({});
 
+  const refScroll = React.useRef<any>();
+
   React.useEffect(() => {
     //Nos conectamos al socket
     let sock: any = io("http://m.rmaafs.com:3500");
@@ -18,6 +20,11 @@ const Opciones = () => {
     //Al recibir algún mensaje...
     sock.on("messages", (msg: any) => {
       setMensajes(msg);
+
+      //Ponemos el scroll hasta abajo
+      setTimeout(function () {
+        refScroll.current.scrollToEnd({ animated: true });
+      }, 500);
     });
   }, []);
 
@@ -50,6 +57,7 @@ const Opciones = () => {
       </View>
 
       <ScrollView
+        ref={refScroll}
         style={{
           width: "100%",
         }}
@@ -71,7 +79,15 @@ const Opciones = () => {
           left: 0,
         }}
       >
-        <InputMessage onSubmit={(text: string) => submitChatMessage(text)} />
+        <InputMessage
+          onSubmit={(text: string) => submitChatMessage(text)}
+          onFocus={() => {
+            //Ponemos el scroll hasta abajo cuando demos click al input
+            setTimeout(function () {
+              refScroll.current.scrollToEnd({ animated: true });
+            }, 500);
+          }}
+        />
       </View>
     </View>
   );

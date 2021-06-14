@@ -102,6 +102,20 @@ app.post('/buscar', (req, res) =>{
     });
 });
 
+app.post('/busProd', (req, res) =>{
+    console.log(req);
+    
+    Producto.find({ nombre_producto: req.body.buscar})
+    .then(doc=>{
+        console.log("Shi che puedo");
+        res.json({response: doc});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+        console.log("No che pudo");
+    });
+});
+
 app.listen(port, ()=>{
     console.log(`Servidor funcionando en el puerto:  ${port}`);
 });

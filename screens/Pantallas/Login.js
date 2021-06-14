@@ -9,9 +9,7 @@ const Login = ({ navigation }) => {
 
     //Nombre
     const [nombre, setNombre] = React.useState("");
-    const [apellido, setAp] = React.useState("");
-    const [celular, setcel] = React.useState("");
-
+    const [passLog, setPassLog] = React.useState("");
     //Funcion que envia los datos
     function Ingresar({ navigation }) {
 
@@ -45,11 +43,16 @@ const Login = ({ navigation }) => {
             </View>
             <Card style={styles.card}>
                 <EvilIcons style={styles.icon} name="user" size={150} color="#FF6347" />
+
                 <View><Text style={styles.Titletxt}>Introduce tu celular:</Text></View>
 
 
-                <TextInput onChangeText={(foo) => { setcel(foo); }} value={celular} placeholder={"Celular"} style={styles.forminput} keyboardType={'phone-pad'} />
+                <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} style={styles.forminput} keyboardType={'default'} />
 
+                <TextInput secureTextEntry={true} onChangeText={(foo) => { setPassLog(foo); }} value={passLog} placeholder={"Contraseña"} style={styles.forminput} keyboardType={'phone-pad'} />
+
+
+                {/* BOTONES */}
                 <TouchableOpacity onPress={() => navigation.popToTop()} style={styles.Enviar}>
                     <Text style={styles.btnTxt}>Ingresar</Text>
                 </TouchableOpacity>
@@ -70,14 +73,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
 
-    icon:{
-        alignSelf:'center',
-        
-    },  
+    icon: {
+        alignSelf: 'center',
+
+    },
 
     card: {
         width: 380,
-        height: 500,
+        height: 550,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,

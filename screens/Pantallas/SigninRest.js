@@ -83,7 +83,7 @@ const SigninRest = ({ navigation }) => {
                     />
 
                     {/* CONTRASEÑA */}
-                    <TextInput secureTextEntry={true} onChangeText={(foo) => { setPassRes(foo); }} value={passRes} placeholder={"Contraseña"} keyboardType={"password"}
+                    <TextInput secureTextEntry={true} onChangeText={(foo) => { setPassRes(foo); }} value={passRes} placeholder={"Contraseña"} keyboardType={"default"}
                         style={styles.forminput}
                     />
 

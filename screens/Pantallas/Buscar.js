@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 
-const Comrapida = ({ navigation }) => {
+const Buscar = ({ navigation }) => {
 
     return (
         <View style={styles.stack}>
@@ -13,7 +13,7 @@ const Comrapida = ({ navigation }) => {
     )
 };
 
-export default Comrapida;
+export default Buscar;
 
 const styles = StyleSheet.create({
     container: {

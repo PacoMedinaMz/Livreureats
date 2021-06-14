@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Picker, Button 
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput, Card } from "react-native-paper";
 import DatePicker from 'react-native-datepicker';
-import { PermissionsAndroid } from "react-native";
 import ImagePicker from 'react-native-image-picker';
 
 
@@ -15,10 +14,10 @@ const Signin = ({ navigation }) => {
     const [apellidoPat, setApePat] = React.useState("");
     const [fecha = { date: "2016-05-15" }, setfechaNac] = React.useState("");
     const [sexo, setSexo] = React.useState("");
-    const [selectedValue, setSelectedValue] = React.useState("");
-    // const [tarjeta, setTarjeta] = React.useState("");
+    const [tarjeta, setTarjeta] = React.useState("");
     const [img, setImg] = React.useState("");
-    // const [dir, setDir] = React.useState("");
+    const [dir, setDir] = React.useState("");
+    const [pass, setPass] = React.useState("");
 
 
     //Funcion que envia los datos
@@ -60,7 +59,7 @@ const Signin = ({ navigation }) => {
         );
 
 
-const launchImageLibrary = async () => {
+    const launchImageLibrary = async () => {
         let options = {
             storageOptions: {
                 skipBackup: true,
@@ -117,6 +116,11 @@ const launchImageLibrary = async () => {
                         style={styles.forminput}
                     />
 
+                     {/* PASSWORD */}
+                     <TextInput onChangeText={(foo) => { setPass(foo); }} value={pass} placeholder={"Contraseña"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
+
                     {/* fecha nacimiento */}
                     <Text style={styles.fechatxt}>Fecha de Nacimiento</Text>
                     <DatePicker
@@ -165,6 +169,18 @@ const launchImageLibrary = async () => {
                         <Button title="request permissions" onPress={launchImageLibrary} />
                         <Button title="Pick an image from camera roll" onPress={() => navigation.navigate("galeria")} />
                     </View> */}
+
+                    {/* TARJETA DE CRÉDITO */}
+                    <TextInput onChangeText={(foo) => { setTarjeta(foo); }} value={tarjeta} placeholder={"Tarjeta de Crédito"} keyboardType={"numeric"}
+                        style={styles.forminput}
+                    />
+
+
+                    {/* DIRECCION */}
+                    <TextInput onChangeText={(foo) => { setDir(foo); }} value={dir} placeholder={"Domicilio"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
+
 
                     {/* BOTONES */}
                     <View style={styles.botones}>
@@ -231,7 +247,7 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 1000,
+        height: 1100,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,

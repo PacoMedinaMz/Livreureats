@@ -23,6 +23,9 @@ import Opciones from '../screens/Pantallas/Opciones';
 import Orden from '../screens/Pantallas/Orden';
 import Buscar from "../screens/Pantallas/Buscar";
 import { FontAwesome } from '@expo/vector-icons';
+import CrudProductos from '../screens/Pantallas/CrudProductos';
+import CrudPersonal from '../screens/Pantallas/CrudPersonal';
+import Carrito from '../screens/Pantallas/Carrito';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -327,6 +330,93 @@ function TabOneNavigator({ navigation }: { navigation: any }) {
       <TabOneStack.Screen
         name="Menurest"
         component={Menurest}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* CRUD PRODUCTOS */}
+      <TabOneStack.Screen
+        name="CrudProductos"
+        component={CrudProductos}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* CRUD PERSONAL */}
+      <TabOneStack.Screen
+        name="CrudPersonal"
+        component={CrudPersonal}
+        options={{
+          headerTitle: () => (
+            <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+
+              <IconButton
+                icon="account"
+                size={28}
+                color="#fff"
+                onPress={() => navigation.navigate("Signin")}
+              />
+            </View>
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center'
+          },
+          headerStyle: {
+            backgroundColor: '#FF6347'
+          }
+        }} />
+
+      {/* CARRITO */}
+      <TabOneStack.Screen
+        name="Carrito"
+        component={Carrito}
         options={{
           headerTitle: () => (
             <View style={styles.TitleAlt}><Text style={styles.Title}>Livreureats</Text></View>

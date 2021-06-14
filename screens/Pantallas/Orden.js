@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, Image, ScrollView } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
-import { Ionicons } from '@expo/vector-icons';
 
-const Orden = ({ route }) => {
+import { Feather } from '@expo/vector-icons';
+import Navigation from '../../navigation';
+const Orden = ({ route, navigation }) => {
     const itemData = route.params.itemData;
     return (
         <View style={styles.container}>
@@ -25,15 +26,15 @@ const Orden = ({ route }) => {
 
                         {/* CATEGORIAS */}
                         <Card style={styles.cat}><Text style={styles.cardtxtcat}>{itemData.categories}</Text></Card>
+                        
+                        {/* PRECIO */}
+                        <Text style={styles.cardprecio}>${itemData.precio} MXN</Text>
 
                         {/* BOTONES */}
-                        <TouchableOpacity style={styles.cardbtn} onPress={() => { }}>
-
+                        <TouchableOpacity style={styles.cardbtn} onPress={() => navigation.navigate("Carrito")}>
                             <Text style={styles.cardtxtbtn}>
-                                Ordenar  <Ionicons name="arrow-up-circle" style={styles.icon} size={24} color="#fff" />
-
+                                Añadir al Carrito  <Feather name="shopping-cart" size={22} color="white" />
                             </Text>
-
                         </TouchableOpacity>
                     </Card>
 
@@ -62,6 +63,13 @@ const styles = StyleSheet.create({
         width: 250,
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
+    },
+
+    cardprecio:{
+        alignSelf:'center',
+        marginTop: 30,
+        fontWeight: 'bold',
+        fontSize:25,
     },
 
     TitleCard: {
@@ -126,10 +134,10 @@ const styles = StyleSheet.create({
 
     cardbtn: {
         backgroundColor: 'green',
-        width: 180,
+        width: 210,
         height: 50,
         borderRadius: 25,
-        marginTop: 50,
+        marginTop: 30,
         alignSelf: 'center',
         alignContent: 'center',
         justifyContent: 'center',

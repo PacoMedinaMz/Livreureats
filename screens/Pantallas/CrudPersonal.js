@@ -2,35 +2,39 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 
-const Menurest = ({ navigation }) => {
+const CrudPersonal = ({ navigation }) => {
     return (
         <View style={styles.container}>
             {/* MENU */}
             <View>
-                <Text style={styles.Title}>Menú Restaurante</Text>
+                <Text style={styles.Title}>Gestión de Personal</Text>
+                <Text style={styles.subtitle}>Selecciona una Opción</Text>
             </View>
 
-            {/* CRUD PRODUCTOS */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("CrudProductos")}>
-                <Text style={styles.textinfo2}>Productos</Text>
+            {/* CONSULTAR EMPLEADO */}
+            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+                <Text style={styles.textinfo2}>Consultar</Text>
             </TouchableOpacity>
 
-            {/* CRUD EMPLEADOS */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("CrudPersonal")}>
-                <Text style={styles.textinfo2}>Personal</Text>
+            {/* AÑADIR EMPLEADO */}
+            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+                <Text style={styles.textinfo2}>Añadir</Text>
             </TouchableOpacity>
 
-            {/* OTROS */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("Menurest")}>
-                <Text style={styles.textinfo2}>Otros</Text>
+            {/* ACTUALIZAR EMPLEADO */}
+            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+                <Text style={styles.textinfo2}>Actualizar</Text>
             </TouchableOpacity>
 
-
+            {/* ELIMINAR EMPLEADO */}
+            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+                <Text style={styles.textinfo2}>Eliminar</Text>
+            </TouchableOpacity>
         </View >
     )
 };
 
-export default Menurest;
+export default CrudPersonal;
 
 const styles = StyleSheet.create({
     container: {
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     },
     CardTitle: {
         backgroundColor: '#EA593F',
-        marginBottom:280,
+        marginBottom: 280,
         width: 250,
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
@@ -64,12 +68,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FF8400'
     },
-
+    subtitle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        alignContent: 'center',
+        marginTop: 20,
+        fontWeight: 'bold',
+        color: '#FF8400'
+    },
 
     Cardinf: {
         borderRadius: 25,
-        width: 300,
-        height: 100,
+        width: 180,
+        height: 80,
         alignSelf: 'center',
         marginTop: 40,
         backgroundColor: '#FFFAF4',
@@ -81,7 +92,7 @@ const styles = StyleSheet.create({
 
     textinfo2: {
         alignSelf: 'center',
-        marginTop: 30,
+        marginTop: 20,
         fontSize: 30,
         color: 'black',
     },

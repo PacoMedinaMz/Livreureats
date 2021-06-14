@@ -23,6 +23,13 @@ export type RootStackParamList = {
   Login: undefined;
   SigninRest: undefined;
   Buscar: undefined;
+  CrudPersonal: undefined;
+  CrudProductos: undefined;
+  Carrito: undefined;
+  altaP: undefined;
+  bajaP: undefined;
+  actP: undefined;
+  consP: undefined
 };
 
 export type BottomTabParamList = {
@@ -35,6 +42,13 @@ export type BottomTabParamList = {
   Login: undefined;
   SigninRest: undefined;
   Buscar: undefined;
+  CrudPersonal: undefined;
+  CrudProductos: undefined;
+  Carrito: undefined;
+  altaP: undefined;
+  bajaP: undefined;
+  actP: undefined;
+  consP: undefined
 };
 
 export type TabOneParamList = {
@@ -53,6 +67,13 @@ export type TabOneParamList = {
   Login: undefined;
   SigninRest: undefined;
   Buscar: undefined;
+  CrudPersonal: undefined;
+  CrudProductos: undefined;
+  Carrito: undefined;
+  altaP: undefined;
+  bajaP: undefined;
+  actP: undefined;
+  consP: undefined
 };
 
 export type TabTwoParamList = {
@@ -73,4 +94,7 @@ export type TabTwoParamList = {
   Login: undefined;
   SigninRest: undefined;
   Buscar: undefined;
+  CrudPersonal: undefined;
+  CrudProductos: undefined;
+  Carrito: undefined;
 };

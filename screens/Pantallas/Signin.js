@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Picker, Button } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Picker, Button, Pressable } from "react-native"
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput, Card } from "react-native-paper";
 import DatePicker from 'react-native-datepicker';
@@ -21,37 +21,9 @@ const Signin = ({ navigation }) => {
     const [pass, setPass] = React.useState("");
 
 
-    //Funcion que envia los datos
-    /*function Enviar() {
-        let data = {
-            nombre: nombre,
-            apellidoMat: apellidoMat,
-            apellidoPat: apellidoPat,
-            fecha: fecha,
-            sexo: sexo,
-            tarjeta: tarjeta,
-            dir: dir,
-            pass: pass,
-
-        };
-
-        console.log("Objecto:", JSON.stringify(data));
-
-        fetch("https://localhost:3000/insUsu", {
-            method: "POST",
-            headers: {
-                "Content-Type":
-                    "application/json",
-            },
-            body: JSON.stringify(data),
-        }).then(()=>{
-            console.log("Datos enviados...")
-          })
-
-    }*/
-
     //ALERT
-    {{/*const Enviado = () =>
+    {
+        {/*const Enviado = () =>
         Alert.alert(
             "Registrado",
             "Tu cuenta ha sido registrada exitosamente",
@@ -63,7 +35,8 @@ const Signin = ({ navigation }) => {
                 },
                 { text: "Continuar", onPress: () => navigation.navigate("Login") }
             ]
-        );*/}}
+        );*/}
+    }
 
     return (
         <View style={styles.container}>
@@ -74,7 +47,7 @@ const Signin = ({ navigation }) => {
                 <Card style={styles.card}>
 
                     {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
-                    
+
                     <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
                     {/* NOMBRE */}
@@ -140,12 +113,6 @@ const Signin = ({ navigation }) => {
                         </Picker>
                     </View>
 
-                    {/* IMAGEN */}
-                    {/* <View style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop: 100 }}>
-                        <Button title="request permissions" onPress={launchImageLibrary} />
-                        <Button title="Pick an image from camera roll" onPress={() => navigation.navigate("galeria")} />
-                    </View> */}
-
                     {/* TARJETA DE CRÉDITO */}
                     <TextInput onChangeText={(foo) => { setTarjeta(foo); }} value={tarjeta} placeholder={"Tarjeta de Crédito"} keyboardType={"numeric"}
                         style={styles.forminput}
@@ -165,30 +132,30 @@ const Signin = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <Button title ="Hola" onPress={ ()=>{
-                            fetch('http://localhost:3000/insUsu',{
-                            method: 'POST',
-                            headers:{
-                                'Content-Type':"application/json"
-                            },body:JSON.stringify({
-                                nombre: nombre,
-                                apellidoMat: apellidoMat,
-                                apellidoPat: apellidoPat,
-                                fecha: fecha,
-                                sexo: sexo,
-                                tarjeta: tarjeta,
-                                dir: dir,
-                                pass: pass
-                            })
-                            }).then(()=>{
+                        <Pressable style={styles.Enviar} onPress={() => {
+                            fetch('http://localhost:3000/insUsu', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': "application/json"
+                                }, body: JSON.stringify({
+                                    nombre: nombre,
+                                    apellidoMat: apellidoMat,
+                                    apellidoPat: apellidoPat,
+                                    fecha: fecha,
+                                    sexo: sexo,
+                                    tarjeta: tarjeta,
+                                    dir: dir,
+                                    pass: pass
+                                })
+                            }).then(() => {
                                 console.log("Datos enviados...")
                             })
-                        }}/>
-
-                       {/*<TouchableOpacity style={styles.Enviar}>
+                        }}>
                             <Text style={styles.btnTxt}>Enviar</Text>
-                        </TouchableOpacity>*/}
+                        </Pressable>
                     </View>
+
+
 
                     <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.Login}>
                         <Text style={styles.btnTxt}>¿Ya estas registrado?</Text>
@@ -199,6 +166,8 @@ const Signin = ({ navigation }) => {
                         <Image style={styles.blurimg} source={require('../../assets/images/rest1.jpg')} resizeMode="cover" />
                         <Text style={styles.textinfo2}>Registro Restaurantes</Text>
                     </TouchableOpacity>
+
+
                 </Card>
             </ScrollView>
 

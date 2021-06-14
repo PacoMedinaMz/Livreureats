@@ -26,6 +26,11 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SigninRest from "../screens/Pantallas/SigninRest";
 import Buscar from "../screens/Pantallas/Buscar";
+import CrudPersonal from "../screens/Pantallas/CrudPersonal";
+import CrudProductos from "../screens/Pantallas/CrudProductos";
+import Carrito from "../screens/Pantallas/Carrito";
+import altaProducto from "../screens/CRUD/altaProducto";
+import BajaProducto from "../screens/CRUD/bajaProducto";
 
 export default function Navigation({
   colorScheme,
@@ -61,6 +66,11 @@ function RootNavigator() {
       <Stack.Screen name="Opciones" component={Opciones} />  
       <Stack.Screen name="SigninRest" component={SigninRest} />  
       <Stack.Screen name="Buscar" component={Buscar} />  
+      <Stack.Screen name="CrudPersonal" component={CrudPersonal} /> 
+      <Stack.Screen name="CrudProductos" component={CrudProductos} /> 
+      <Stack.Screen name="Carrito" component={Carrito} /> 
+      <Stack.Screen name="altaP" component={altaProducto} /> 
+      <Stack.Screen name="bajaP" component={BajaProducto} /> 
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

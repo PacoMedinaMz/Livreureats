@@ -16,6 +16,7 @@ export const crapida = [
         description: 'Con queso y lechuga.',
         image: Images[2].image,
         categories: ['Rápida',', Carne', ', Sabrosa'],
+        precio:'55'
     },
 ]
 
@@ -27,6 +28,7 @@ export const bebida = [
         description: 'Café caliente',
         image: Images[0].image,
         categories: ['Bebida',', Desayuno',', Caliente'],
+        precio:'32'
     },
 ]
 
@@ -39,6 +41,7 @@ export const postre = [
         description: 'Relleno de chocolate',
         image: Images[1].image,
         categories: ['Postre',', Comida',', Azucar'],
+        precio:'125'
     },
 ]
 
@@ -51,6 +54,7 @@ export const menu = [
         description: 'Café caliente.',
         image: Images[0].image,
         categories: ['Bebida',', Desayuno',', Caliente'],
+        precio:'32'
     },
     {
         id:'3',
@@ -58,6 +62,7 @@ export const menu = [
         description: 'Relleno de chocolate.',
         image: Images[1].image,
         categories: ['Postre',', Comida',', Azucar'],
+        precio:'125'
     },
     {
         id:'2',
@@ -65,5 +70,6 @@ export const menu = [
         description: 'Con queso y lechuga.',
         image: Images[2].image,
         categories: ['Rápida',', Carne', ', Sabrosa'],
+        precio:'55'
     },
 ]

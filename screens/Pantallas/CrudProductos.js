@@ -12,7 +12,7 @@ const CrudProductos = ({ navigation }) => {
             </View>
 
             {/* CONSULTAR PRODUCTOS */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+            <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("consP")}>
                 <Text style={styles.textinfo2}>Consultar</Text>
             </TouchableOpacity>
 
@@ -22,7 +22,7 @@ const CrudProductos = ({ navigation }) => {
             </TouchableOpacity>
 
             {/* ACTUALIZAR PRODUCTOS */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+            <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("actP")}>
                 <Text style={styles.textinfo2}>Actualizar</Text>
             </TouchableOpacity>
 

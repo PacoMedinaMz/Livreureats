@@ -19,13 +19,7 @@ const Menurest = ({ navigation }) => {
             <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("CrudPersonal")}>
                 <Text style={styles.textinfo2}>Personal</Text>
             </TouchableOpacity>
-
-            {/* OTROS */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("Menurest")}>
-                <Text style={styles.textinfo2}>Otros</Text>
-            </TouchableOpacity>
-
-
+            
         </View >
     )
 };

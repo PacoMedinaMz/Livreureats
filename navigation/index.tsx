@@ -29,8 +29,19 @@ import Buscar from "../screens/Pantallas/Buscar";
 import CrudPersonal from "../screens/Pantallas/CrudPersonal";
 import CrudProductos from "../screens/Pantallas/CrudProductos";
 import Carrito from "../screens/Pantallas/Carrito";
+
+//Productos
 import altaProducto from "../screens/CRUD/altaProducto";
 import BajaProducto from "../screens/CRUD/bajaProducto";
+import conProducto from "../screens/CRUD/conProducto";
+import actProducto from "../screens/CRUD/actProducto";
+import altaPersonal from "../screens/CRUDPersonal/altaPersonal";
+import BajaPersonal from "../screens/CRUDPersonal/bajaPersonal";
+import conPersonal from "../screens/CRUDPersonal/conPersonal";
+import actPersonal from "../screens/CRUDPersonal/actPersonal";
+
+//Personal
+
 
 export default function Navigation({
   colorScheme,
@@ -71,6 +82,12 @@ function RootNavigator() {
       <Stack.Screen name="Carrito" component={Carrito} /> 
       <Stack.Screen name="altaP" component={altaProducto} /> 
       <Stack.Screen name="bajaP" component={BajaProducto} /> 
+      <Stack.Screen name="consP" component={conProducto} /> 
+      <Stack.Screen name="actP" component={actProducto} /> 
+      <Stack.Screen name="altaPer" component={altaPersonal} /> 
+      <Stack.Screen name="bajaPer" component={BajaPersonal} /> 
+      <Stack.Screen name="consPer" component={conPersonal} /> 
+      <Stack.Screen name="actPer" component={actPersonal} /> 
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

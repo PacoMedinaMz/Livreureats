@@ -12,22 +12,22 @@ const CrudPersonal = ({ navigation }) => {
             </View>
 
             {/* CONSULTAR EMPLEADO */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+            <TouchableOpacity style={styles.Cardinf}  onPress={() => navigation.navigate("consPer")}>
                 <Text style={styles.textinfo2}>Consultar</Text>
             </TouchableOpacity>
 
             {/* AÑADIR EMPLEADO */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+            <TouchableOpacity style={styles.Cardinf}  onPress={() => navigation.navigate("altaPer")}>
                 <Text style={styles.textinfo2}>Añadir</Text>
             </TouchableOpacity>
 
             {/* ACTUALIZAR EMPLEADO */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+            <TouchableOpacity style={styles.Cardinf}  onPress={() => navigation.navigate("actPer")}>
                 <Text style={styles.textinfo2}>Actualizar</Text>
             </TouchableOpacity>
 
             {/* ELIMINAR EMPLEADO */}
-            <TouchableOpacity style={styles.Cardinf} onPress={() => {}}>
+            <TouchableOpacity style={styles.Cardinf}  onPress={() => navigation.navigate("bajaPer") }>
                 <Text style={styles.textinfo2}>Eliminar</Text>
             </TouchableOpacity>
         </View >

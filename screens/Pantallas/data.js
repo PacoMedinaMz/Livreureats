@@ -73,3 +73,29 @@ export const menu = [
         precio:'55'
     },
 ]
+
+
+//PERSONAL
+export const personal = [
+    {
+        id:'1',
+        nombre: 'Jorge',
+        apePat: 'Pavon',
+        apeMat: 'Romo',
+        sexo: 'hombre',
+    },
+    {
+        id:'2',
+        nombre: 'Juan',
+        apePat: 'Lopez',
+        apeMat: 'Martinez',
+        sexo: 'hombre',
+    },
+    {
+        id:'3',
+        nombre: 'Ana',
+        apePat: 'Gutierrez',
+        apeMat: 'Del Campo',
+        sexo: 'hombre',
+    },
+]

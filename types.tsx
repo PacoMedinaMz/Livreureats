@@ -30,6 +30,10 @@ export type RootStackParamList = {
   bajaP: undefined;
   actP: undefined;
   consP: undefined
+  altaPer: undefined;
+  bajaPer: undefined;
+  actPer: undefined;
+  consPer: undefined;
 };
 
 export type BottomTabParamList = {
@@ -49,6 +53,10 @@ export type BottomTabParamList = {
   bajaP: undefined;
   actP: undefined;
   consP: undefined
+  altaPer: undefined;
+  bajaPer: undefined;
+  actPer: undefined;
+  consPer: undefined;
 };
 
 export type TabOneParamList = {
@@ -73,7 +81,12 @@ export type TabOneParamList = {
   altaP: undefined;
   bajaP: undefined;
   actP: undefined;
-  consP: undefined
+  consP: undefined;
+  altaPer: undefined;
+  bajaPer: undefined;
+  actPer: undefined;
+  consPer: undefined;
+  
 };
 
 export type TabTwoParamList = {
@@ -97,4 +110,10 @@ export type TabTwoParamList = {
   CrudPersonal: undefined;
   CrudProductos: undefined;
   Carrito: undefined;
+  consP: undefined
+  Menucomida: undefined;
+  altaPer: undefined;
+  bajaPer: undefined;
+  actPer: undefined;
+  consPer: undefined;
 };

@@ -1,46 +1,47 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Picker, Button } from "react-native"
+import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput, Card } from "react-native-paper";
-
+import DatePicker from 'react-native-datepicker';
+import { PermissionsAndroid } from "react-native";
+import ImagePicker from 'react-native-image-picker';
 
 
 const Signin = ({ navigation }) => {
-    // Aqui declaro las variables que se usan en los inputs
 
-    //Nombre
+    // USUARIO
     const [nombre, setNombre] = React.useState("");
-    const [apellido, setAp] = React.useState("");
-    const [celular, setcel] = React.useState("");
+    const [apellidoMat, setApeMat] = React.useState("");
+    const [apellidoPat, setApePat] = React.useState("");
+    const [fecha = { date: "2016-05-15" }, setfechaNac] = React.useState("");
+    const [sexo, setSexo] = React.useState("");
+    const [selectedValue, setSelectedValue] = React.useState("");
+    // const [tarjeta, setTarjeta] = React.useState("");
+    const [img, setImg] = React.useState("");
+    // const [dir, setDir] = React.useState("");
+
 
     //Funcion que envia los datos
     function Enviar() {
-        // Aqui declaro las variables que se usan en los inputs
+        let data = {
+            nombre: nombre,
+            apellido: apellido,
+            celular: celular,
 
-        //Nombre
-        const [nombre, setNombre] = React.useState("");
-        const [apellido, setAp] = React.useState("");
-        const [celular, setcel] = React.useState("");
+        };
 
-        //Funcion que envia los datos
-        function Enviar() {
-            let data = {
-                nombre: nombre,
-                apellido: apellido,
-                celular: celular,
-            };
+        console.log("Objecto:", JSON.stringify(data));
 
-            console.log("Objecto:", JSON.stringify(data));
+        const response = fetch("https://localhost:", {
+            method: "POST",
+            headers: {
+                "Content-Type":
+                    "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log("Respuesta:", response);
 
-            const response = fetch("https://localhost:", {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                        "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            console.log("Respuesta:", response);
-        }
     }
 
     //ALERT
@@ -51,54 +52,144 @@ const Signin = ({ navigation }) => {
             [
                 {
                     text: "Regresar",
-                    onPress: () =>  navigation.goBack(),
+                    onPress: () => navigation.goBack(),
                     style: "cancel"
                 },
-                { text: "Continuar", onPress: () => navigation.navigate("Login")}
+                { text: "Continuar", onPress: () => navigation.navigate("Login") }
             ]
         );
-        
+
+
+const launchImageLibrary = async () => {
+        let options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.launchImageLibrary(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                const source = { uri: response.uri };
+                console.log('response', JSON.stringify(response));
+                this.setState({
+                    filePath: response,
+                    fileData: response.data,
+                    fileUri: response.uri
+                });
+            }
+        });
+
+    }
+
     return (
 
-
         <View style={styles.container}>
+
             <View style={styles.stack}>
                 <Text style={styles.Title}>Registro Usuario</Text>
             </View>
-            <Card style={styles.card}>
+            <ScrollView>
+                <Card style={styles.card}>
 
-                <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
-                <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} keyboardType={"default"}
-                    style={styles.forminput}
-                />
+                    <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
-                <TextInput onChangeText={(foo) => { setAp(foo); }} value={apellido} placeholder={"Apellido"} keyboardType={"default"}
-                    style={styles.forminput}
-                />
+                    {/* NOMBRE */}
+                    <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                <TextInput onChangeText={(foo) => { setcel(foo); }} value={celular} placeholder={"Celular"} style={styles.forminput} keyboardType={'phone-pad'} />
+                    {/* APELLIDO PATERNO */}
+                    <TextInput onChangeText={(foo) => { setApePat(foo); }} value={apellidoPat} placeholder={"Apellido Paterno"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                <View style={styles.botones}>
+                    {/* APELLIDO MATERNO */}
+                    <TextInput onChangeText={(foo) => { setApeMat(foo); }} value={apellidoMat} placeholder={"Apellido Materno"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
-                        <Text style={styles.btnTxt}>Regresar</Text>
+                    {/* fecha nacimiento */}
+                    <Text style={styles.fechatxt}>Fecha de Nacimiento</Text>
+                    <DatePicker
+                        style={styles.fecha}
+                        date={fecha.date}
+                        mode="date"
+                        placeholder="Fecha Nacimiento"
+                        format="YYYY-MM-DD"
+                        minDate="2021-06-13"
+                        maxDate="2022-06-13"
+                        confirmBtnText="Confirmar"
+                        cancelBtnText="Cancelar"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                            dateInput: {
+                                marginLeft: 36,
+                                backgroundColor: '#fff',
+                                borderColor: "#FF6347",
+                                borderRadius: 25,
+                            }
+                        }}
+                        onDateChange={(date) => { setfechaNac({ date: date }) }}
+                    />
+
+                    {/* SEXO */}
+                    <View style={styles.sexlbl}>
+                        <Text style={styles.sextx}>Sexo:</Text>
+                        <Picker
+                            selectedValue={sexo}
+                            style={styles.sex}
+                            onValueChange={(itemValue, itemIndex) => setSexo(itemValue)}
+                        >
+
+                            <Picker.Item label="Hombre" value="H" />
+                            <Picker.Item label="Mujer" value="M" />
+                        </Picker>
+                    </View>
+
+                    {/* IMAGEN */}
+                    {/* <View style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop: 100 }}>
+                        <Button title="request permissions" onPress={launchImageLibrary} />
+                        <Button title="Pick an image from camera roll" onPress={() => navigation.navigate("galeria")} />
+                    </View> */}
+
+                    {/* BOTONES */}
+                    <View style={styles.botones}>
+
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
+                            <Text style={styles.btnTxt}>Regresar</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
+                            <Text style={styles.btnTxt}>Enviar</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.Login}>
+                        <Text style={styles.btnTxt}>¿Ya estas registrado?</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
-                        <Text style={styles.btnTxt}>Enviar</Text>
+                    <View><Text style={styles.Titletxt2}>¿Tienes un restaurante?</Text></View>
+                    <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("SigninRest")}>
+                        <Image style={styles.blurimg} source={require('../../assets/images/rest1.jpg')} resizeMode="cover" />
+                        <Text style={styles.textinfo2}>Registro Restaurantes</Text>
                     </TouchableOpacity>
-                </View>
+                </Card>
+            </ScrollView>
 
-                <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.Login}>
-                    <Text style={styles.btnTxt}>¿Ya estas registrado?</Text>
-                </TouchableOpacity>
-
-                <View><Text style={styles.Titletxt2}>¿Tienes un restaurante?</Text></View>
-                <TouchableOpacity style={styles.Cardinf} onPress={() => navigation.navigate("SigninRest")}>
-                    <Image style={styles.blurimg} source={require('../../assets/images/rest1.jpg')} resizeMode="cover" />
-                    <Text style={styles.textinfo2}>Registro Restaurantes</Text>
-                </TouchableOpacity>
-            </Card>
 
         </View>
     )
@@ -112,6 +203,27 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
 
+    sexlbl: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        marginTop: 25,
+    },
+    sex: {
+        color: "black",
+        height: 50,
+        width: 150,
+    },
+
+    sextx: {
+        alignSelf: 'center',
+        color: 'gray',
+    },
+
+    fechatxt: {
+        marginTop: 25,
+        color: 'gray',
+        alignSelf: 'center',
+    },
     botones: {
         flexDirection: "row",
         alignSelf: 'center',
@@ -119,7 +231,7 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 700,
+        height: 1000,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
@@ -127,6 +239,15 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         borderColor: '#D9D9D9',
         borderBottomWidth: 2,
+    },
+
+
+    fecha: {
+        width: 200,
+        backgroundColor: '#fff',
+        borderColor: '#fff',
+        alignSelf: 'center',
+        marginTop: 10,
     },
 
     CardTitle: {
@@ -231,7 +352,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 0,
         paddingVertical: 10,
-        marginTop: 30,
+        marginTop: 30
 
     },
     Login: {

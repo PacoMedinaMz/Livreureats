@@ -25,7 +25,7 @@ import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SigninRest from "../screens/Pantallas/SigninRest";
-
+import Buscar from "../screens/Pantallas/Buscar";
 
 export default function Navigation({
   colorScheme,
@@ -60,6 +60,7 @@ function RootNavigator() {
       <Stack.Screen name="Menucomida" component={Menucomida} />
       <Stack.Screen name="Opciones" component={Opciones} />  
       <Stack.Screen name="SigninRest" component={SigninRest} />  
+      <Stack.Screen name="Buscar" component={Buscar} />  
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

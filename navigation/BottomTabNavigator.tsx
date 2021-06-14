@@ -21,8 +21,8 @@ import Menucomida from '../screens/Pantallas/Menucomida';
 import GraficasScreen from '../screens/Graficas/GraficasScreen';
 import Opciones from '../screens/Pantallas/Opciones';
 import Orden from '../screens/Pantallas/Orden';
-
-
+import Buscar from "../screens/Pantallas/Buscar";
+import { FontAwesome } from '@expo/vector-icons';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -58,6 +58,17 @@ export default function BottomTabNavigator({ navigation }: { navigation: any }) 
 
           tabBarIcon: ({ focused }) => (
             <Entypo name="home" size={24} color={focused ? "#fff" : '#A8A8A8'} />),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Buscar"
+        component={Buscar}
+        options={{
+
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome name="search" size={24} color={focused ? "#fff" : '#A8A8A8'} />
+          ),
         }}
       />
       <BottomTab.Screen

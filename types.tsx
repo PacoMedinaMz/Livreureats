@@ -22,6 +22,7 @@ export type RootStackParamList = {
   Opciones: undefined;
   Login: undefined;
   SigninRest: undefined;
+  Buscar: undefined;
 };
 
 export type BottomTabParamList = {
@@ -33,6 +34,7 @@ export type BottomTabParamList = {
   Home: undefined;
   Login: undefined;
   SigninRest: undefined;
+  Buscar: undefined;
 };
 
 export type TabOneParamList = {
@@ -50,6 +52,7 @@ export type TabOneParamList = {
   Home: undefined;
   Login: undefined;
   SigninRest: undefined;
+  Buscar: undefined;
 };
 
 export type TabTwoParamList = {
@@ -69,4 +72,5 @@ export type TabTwoParamList = {
   Home: undefined;
   Login: undefined;
   SigninRest: undefined;
+  Buscar: undefined;
 };

@@ -44,7 +44,7 @@ const Login = ({ navigation }) => {
             <Card style={styles.card}>
                 <EvilIcons style={styles.icon} name="user" size={150} color="#FF6347" />
 
-                <View><Text style={styles.Titletxt}>Introduce tu celular:</Text></View>
+                <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
 
                 <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} style={styles.forminput} keyboardType={'default'} />

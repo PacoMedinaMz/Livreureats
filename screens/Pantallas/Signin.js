@@ -22,7 +22,7 @@ const Signin = ({ navigation }) => {
 
 
     //Funcion que envia los datos
-    function Enviar() {
+    /*function Enviar() {
         let data = {
             nombre: nombre,
             apellidoMat: apellidoMat,
@@ -37,20 +37,21 @@ const Signin = ({ navigation }) => {
 
         console.log("Objecto:", JSON.stringify(data));
 
-        const response = fetch("https://localhost:", {
+        fetch("https://localhost:3000/insUsu", {
             method: "POST",
             headers: {
                 "Content-Type":
                     "application/json",
             },
             body: JSON.stringify(data),
-        });
-        console.log("Respuesta:", response);
+        }).then(()=>{
+            console.log("Datos enviados...")
+          })
 
-    }
+    }*/
 
     //ALERT
-    const Enviado = () =>
+    {{/*const Enviado = () =>
         Alert.alert(
             "Registrado",
             "Tu cuenta ha sido registrada exitosamente",
@@ -62,7 +63,7 @@ const Signin = ({ navigation }) => {
                 },
                 { text: "Continuar", onPress: () => navigation.navigate("Login") }
             ]
-        );
+        );*/}}
 
     return (
         <View style={styles.container}>
@@ -164,9 +165,29 @@ const Signin = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
+                        <Button title ="Hola" onPress={ ()=>{
+                            fetch('http://localhost:3000/insUsu',{
+                            method: 'POST',
+                            headers:{
+                                'Content-Type':"application/json"
+                            },body:JSON.stringify({
+                                nombre: nombre,
+                                apellidoMat: apellidoMat,
+                                apellidoPat: apellidoPat,
+                                fecha: fecha,
+                                sexo: sexo,
+                                tarjeta: tarjeta,
+                                dir: dir,
+                                pass: pass
+                            })
+                            }).then(()=>{
+                                console.log("Datos enviados...")
+                            })
+                        }}/>
+
+                       {/*<TouchableOpacity style={styles.Enviar}>
                             <Text style={styles.btnTxt}>Enviar</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                     </View>
 
                     <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.Login}>

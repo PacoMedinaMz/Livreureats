@@ -6,7 +6,7 @@ const Buscar = ({ navigation }) => {
 
     return (
         <View style={styles.stack}>
-            <Text style={styles.Title}>Soporte en vivo</Text>
+            <Text style={styles.Title}>Buscador</Text>
         </View>
 
 

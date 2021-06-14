@@ -7,6 +7,7 @@ import ImagePicker from 'react-native-image-picker';
 
 
 const Signin = ({ navigation }) => {
+    // Aqui declaro las variables que se usan en los inputs
 
     // USUARIO
     const [nombre, setNombre] = React.useState("");
@@ -24,8 +25,13 @@ const Signin = ({ navigation }) => {
     function Enviar() {
         let data = {
             nombre: nombre,
-            apellido: apellido,
-            celular: celular,
+            apellidoMat: apellidoMat,
+            apellidoPat: apellidoPat,
+            fecha: fecha,
+            sexo: sexo,
+            tarjeta: tarjeta,
+            dir: dir,
+            pass: pass,
 
         };
 
@@ -58,47 +64,16 @@ const Signin = ({ navigation }) => {
             ]
         );
 
-
-    const launchImageLibrary = async () => {
-        let options = {
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-        ImagePicker.launchImageLibrary(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                alert(response.customButton);
-            } else {
-                const source = { uri: response.uri };
-                console.log('response', JSON.stringify(response));
-                this.setState({
-                    filePath: response,
-                    fileData: response.data,
-                    fileUri: response.uri
-                });
-            }
-        });
-
-    }
-
     return (
-
         <View style={styles.container}>
-
             <View style={styles.stack}>
                 <Text style={styles.Title}>Registro Usuario</Text>
             </View>
             <ScrollView>
                 <Card style={styles.card}>
 
+                    {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
+                    
                     <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
                     {/* NOMBRE */}
@@ -116,8 +91,8 @@ const Signin = ({ navigation }) => {
                         style={styles.forminput}
                     />
 
-                     {/* PASSWORD */}
-                     <TextInput onChangeText={(foo) => { setPass(foo); }} value={pass} placeholder={"Contraseña"} keyboardType={"default"}
+                    {/* PASSWORD */}
+                    <TextInput secureTextEntry={true} onChangeText={(foo) => { setPass(foo); }} value={pass} placeholder={"Contraseña"} keyboardType={"default"}
                         style={styles.forminput}
                     />
 
@@ -182,7 +157,7 @@ const Signin = ({ navigation }) => {
                     />
 
 
-                    {/* BOTONES */}
+                    {/* BOTONES DE OPCIONES*/}
                     <View style={styles.botones}>
 
                         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
@@ -213,6 +188,7 @@ const Signin = ({ navigation }) => {
 
 export default Signin;
 
+// ESTILOS
 const styles = StyleSheet.create({
     container: {
         flex: 1,

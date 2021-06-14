@@ -1,117 +1,131 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 
-
-
 const SigninRest = ({ navigation }) => {
-    // Aqui declaro las variables que se usan en los inputs
 
-    //Nombre
+    // Aqui declaro las variables que se usan en los inputs
     const [nombre, setNombre] = React.useState("");
-    const [restaurante, setRes] = React.useState("");
-    const [celular, setcel] = React.useState("");
+    const [ubicacion, setUbi] = React.useState("");
+    const [img, setImg] = React.useState("");
+    const [des, setDes] = React.useState("");
+    const [horario, setHor] = React.useState("");
+    const [passRes, setPassRes] = React.useState("");
 
     //Funcion que envia los datos
     function Enviar() {
-        // Aqui declaro las variables que se usan en los inputs
+        let data = {
+            nombre: nombre,
+            ubicacion: ubicacion,
+            img: img,
+            des: des,
+            horario: horario,
+        };
 
-        //Nombre
-        const [nombre, setNombre] = React.useState("");
-        const [restaurante, setRes] = React.useState("");
-        const [celular, setcel] = React.useState("");
+        console.log("Objeto:", JSON.stringify(data));
 
-        //Funcion que envia los datos
-        function Enviar() {
-            let datares = {
-                nombre: nombre,
-                restaurante: restaurante,
-                celular: celular,
-            };
+        const response = fetch("https://localhost:", {
+            method: "POST",
+            headers: {
+                "Content-Type":
+                    "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log("Respuesta:", response);
 
-            console.log("Objecto:", JSON.stringify(data));
-
-            const response = fetch("https://localhost:", {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                        "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            console.log("Respuesta:", response);
-        }
     }
 
-       //ALERT
-       const Enviado = () =>
-       Alert.alert(
-        "¡Restaurante registrado!",
-           "Tu Restaurante ha sido registrado exitosamente",
-           [
-               {
-                   text: "Regresar",
-                   onPress: () =>  navigation.goBack(),
-                   style: "cancel"
-               },
-               { text: "Continuar", onPress: () => navigation.navigate("Login")}
-           ]
-       );
-       
+    //ALERT
+    const Enviado = () =>
+        Alert.alert(
+            "¡Restaurante registrado!",
+            "Tu Restaurante ha sido registrado exitosamente",
+            [
+                {
+                    text: "Regresar",
+                    onPress: () => navigation.goBack(),
+                    style: "cancel"
+                },
+                { text: "Continuar", onPress: () => navigation.navigate("Login") }
+            ]
+        );
+
     return (
         <View style={styles.container}>
             <View style={styles.stack}>
                 <Text style={styles.Title}>Registro Restaurante</Text>
             </View>
-            <Card style={styles.card}>
+            <ScrollView>
+                <Card style={styles.card}>
+                    {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
 
-                <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
-                <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Propietario"} keyboardType={"default"}
-                    style={styles.forminput}
-                />
+                    <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
-                <TextInput onChangeText={(foo) => { setRes(foo); }} value={restaurante} placeholder={"Restaurante"} keyboardType={"default"}
-                    style={styles.forminput}
-                />
+                    {/* NOMBRE */}
+                    <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                <TextInput onChangeText={(foo) => { setcel(foo); }} value={celular} placeholder={"Celular"} style={styles.forminput} keyboardType={'phone-pad'} />
+                    {/* RESTAURANTE */}
+                    <TextInput onChangeText={(foo) => { setUbi(foo); }} value={ubicacion} placeholder={"Ubicación"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                <View style={styles.botones}>
+                    {/* RESTAURANTE */}
+                    <TextInput onChangeText={(foo) => { setDes(foo); }} value={des} placeholder={"Descripción"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
-                        <Text style={styles.btnTxt}>Regresar</Text>
-                    </TouchableOpacity>
+                    {/* HORARIO */}
+                    <TextInput onChangeText={(foo) => { setHor(foo); }} value={des} placeholder={"Horario"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
 
-                    <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
-                        <Text style={styles.btnTxt}>Registrarse</Text>
-                    </TouchableOpacity>
-                </View>
+                    {/* CONTRASEÑA */}
+                    <TextInput secureTextEntry={true} onChangeText={(foo) => { setPassRes(foo); }} value={passRes} placeholder={"Contraseña"} keyboardType={"password"}
+                        style={styles.forminput}
+                    />
 
-            </Card>
+                    {/* BOTONES DE OPCIONES */}
+                    <View style={styles.botones}>
+
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
+                            <Text style={styles.btnTxt}>Regresar</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
+                            <Text style={styles.btnTxt}>Registrarse</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </Card>
+            </ScrollView>
         </View>
     )
 };
 
 export default SigninRest;
 
+// ESTILOS
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
     },
 
-    botones:{
+    botones: {
         flexDirection: "row",
         alignSelf: 'center',
     },
 
     card: {
         width: 380,
-        height: 450,
+        height: 600,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
-        marginTop: 120,
+        marginTop: 90,
         borderRadius: 25,
         borderColor: '#D9D9D9',
         borderBottomWidth: 2,
@@ -220,7 +234,7 @@ const styles = StyleSheet.create({
         paddingTop: 0,
         paddingVertical: 10,
         marginTop: 30,
-   
+
     },
     Login: {
         width: "50%",

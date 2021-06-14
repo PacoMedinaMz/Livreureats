@@ -1,5 +1,4 @@
 const express = require('express');
-//const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { response } = require('express');
 const cors = require('cors');
@@ -26,6 +25,8 @@ conexion.once('error', (err)=>{
 const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String, 
     apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String}, 'usuario');
 
+const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String, precio:String}, 'producto');
+
 app.get('/', (req, res)=>{
     res.send("Hola");
 
@@ -43,6 +44,49 @@ app.post('/insUsu', (req, res) =>{
         tarjeta:req.body.tarjeta,
         dir:req.body.dir,
         pass:req.body.pass
+    });
+    //Mongoose
+    
+    usuario.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        console.log(req.body);
+        //console.log(json);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.post('/insPro', (req, res) =>{
+    console.log(req);
+
+    const producto = new Producto({
+        nombre_producto: req.body.nombre_producto, 
+        descripcion: req.body.descripcion,
+        categoria: req.body.categoria,
+        precio: req.body.precio
+    });
+    //Mongoose
+    
+    producto.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        //console.log(req.body);
+        //console.log(json);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        //res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.post('/buscar', (req, res) =>{
+    console.log(req);
+
+    const usuario = new Usuario({
+        
     });
     //Mongoose
     

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Picker } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Picker, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 
@@ -12,6 +12,7 @@ const actPersonal = ({ navigation }) => {
     const [apeMat, setApeMat] = React.useState("");
     const [sexo, setSexo] = React.useState("");
     const [image, setImage] = React.useState("");
+    const [personal, setPersonal]= React.useState([]);
 
     // FUNCIONES DE CARGAR DE FOTO
     useEffect(() => {
@@ -23,8 +24,17 @@ const actPersonal = ({ navigation }) => {
                 }
             }
         })();
+        api();
     }, []);
 
+    async function api(){
+        await fetch("http://192.168.2.2:3000/busPersonal")
+        .then((res) => res.json())
+        .then((json) => {
+            setPersonal(json.data);
+            
+        });
+    }
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -42,12 +52,77 @@ const actPersonal = ({ navigation }) => {
         }
     };
     // FUNCIONES DE CARGAR DE FOTO FIN
+    const btnAceptar=()=>{
+        Alert.alert(
+            "¿Esta seguro de dar de actualizar el personal?",
+            `Se actualizara el personal con id: ${id}`,
+            [
+                {
+                    text: "Regresar",
+                    onPress: () => navigation.goBack(),
+                    style: "cancel"
+                },
+                { text: "Continuar", onPress: () => updatePersonal() }
+            ]
+        );
+    }
+    function updatePersonal(){
+        let data = {
+            
+            nombre: nombre,
+            apellidoPat:apePat,
+            apellidoMat: apeMat,
+            sexo: sexo,
+            id: id,
+            
+        };
+
+        console.log("Objeto:", JSON.stringify(data));
+
+        const response = fetch(`http://192.168.2.2:3000/actPersonal/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log("Respuesta:", response);
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.stack}>
                 <Text style={styles.Title}>Actualizar Personal</Text>
             </View>
+            <View style={styles.productos}>
+                            <ScrollView style={styles.row} horizontal>
+                                 <Text style={styles.ProductoTxt}>Id</Text>
+                                <Text style={styles.ProductoTxt}>Nombre</Text>
+                                <Text style={styles.ProductoTxt}>Ap. Paterno</Text>
+                                <Text style={styles.ProductoTxt}>Ap. Materno</Text>
+                                <Text style={styles.ProductoTxt}>Sexo</Text>
+                                
+                            </ScrollView>
+                </View>
+                <FlatList
+                    
+                    data={personal}
+                    renderItem={({item})=>(
+                        <View style={styles.productos}>
+                            <View style={styles.row}>
+                            <Text style={styles.ProductoTxt}>{item.idShort}</Text>
+                                <Text style={styles.ProductoTxt}>{item.nombre}</Text>
+                                <Text style={styles.ProductoTxt}>{item.apellidoPat}</Text>
+                                <Text style={styles.ProductoTxt}>{item.apellidoMat}</Text>
+                                <Text style={styles.ProductoTxt}>{item.sexo}</Text>
+                                
+                            </View>
+                        </View>
+                    )}
+                    
+                    keyExtractor={item => item._id}
+                 />
             <ScrollView>
                 <Card style={styles.card}>
                     {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
@@ -55,10 +130,10 @@ const actPersonal = ({ navigation }) => {
                     <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
                     {/* ID */}
-                    <TextInput onChangeText={(foo) => { setId(foo); }} value={id} placeholder={"ID"} keyboardType={"numeric"}
+                    <TextInput onChangeText={(foo) => { setId(foo); }} value={id} placeholder={"Id a modificar"} keyboardType={"numeric"}
                         style={styles.forminput}
                     />
-
+                    <View><Text style={styles.Titletxt}>Introduce los nuevos datos:</Text></View>
                     {/* NOMBRE */}
                     <TextInput onChangeText={(foo) => { setNombre(foo); }} value={nombre} placeholder={"Nombre"} keyboardType={"default"}
                         style={styles.forminput}
@@ -83,8 +158,8 @@ const actPersonal = ({ navigation }) => {
                             onValueChange={(itemValue, itemIndex) => setSexo(itemValue)}
                         >
 
-                            <Picker.Item label="Hombre" value="H" />
-                            <Picker.Item label="Mujer" value="M" />
+                            <Picker.Item label="Hombre" value="Hombre" />
+                            <Picker.Item label="Mujer" value="Mujer" />
                         </Picker>
                     </View>
 
@@ -101,8 +176,8 @@ const actPersonal = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.Enviar}>
-                            <Text style={styles.btnTxt}>Agregar</Text>
+                        <TouchableOpacity onPress={btnAceptar} style={styles.Enviar}>
+                            <Text style={styles.btnTxt}>Actualizar</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -153,7 +228,7 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 780,
+        height: 880,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
@@ -303,4 +378,23 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
+    productos:{
+        flexDirection:"row",
+        justifyContent:"center",
+        padding:10,
+        borderBottomWidth:1
+    },
+    row:{
+        flexDirection:"row"
+    },
+    ProductoTxt:{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        fontSize: 14,
+        marginTop: 5,
+        marginLeft:12,
+        marginRight:12,
+        fontWeight: "bold",
+        color: "#FF6347",
+    }
 });

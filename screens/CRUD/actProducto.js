@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 
 const actProducto = ({ navigation }) => {
@@ -11,12 +11,93 @@ const actProducto = ({ navigation }) => {
     const [img, setImg] = React.useState("");
     const [categories, setCat] = React.useState("");
     const [precio, setPrecio] = React.useState("");
+    const [restaurante, setRest] = React.useState("");
 
+    const [productos,setProductos]=React.useState([]);
+    React.useEffect(()=>{
+        
+        api();
+        
+    },[]);
+    async function api(){
+        await fetch("http://192.168.2.2:3000/busProductos")
+        .then((res) => res.json())
+        .then((json) => {
+            setProductos(json.data);
+            
+        });
+    }
+    const btnActualizar=()=>{
+        Alert.alert(
+            "¿Esta seguro de dar de actualizar el producto?",
+            `Se actualizara el producto con id: ${id}`,
+            [
+                {
+                    text: "Regresar",
+                    onPress: () => navigation.goBack(),
+                    style: "cancel"
+                },
+                { text: "Continuar", onPress: () => updateProd() }
+            ]
+        );
+    }
+    function updateProd(){
+        let data = {
+            
+            nombre_producto: title,
+            descripcion:description,
+            categoria: categories,
+            precio: precio,
+            id: id,
+            restaurante:restaurante,
+            //image: image,
+        };
+
+        console.log("Objeto:", JSON.stringify(data));
+
+        const response = fetch(`http://192.168.2.2:3000/actProd/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log("Respuesta:", response);
+    }
     return (
         <View style={styles.container}>
             <View style={styles.stack}>
                 <Text style={styles.Title}>Actualizar Producto</Text>
             </View>
+            <View style={styles.productos}>
+                            <ScrollView style={styles.row} horizontal>
+                                 <Text style={styles.ProductoTxt}>Id</Text>
+                                <Text style={styles.ProductoTxt}>Producto</Text>
+                                <Text style={styles.ProductoTxt}>Categoria</Text>
+                                <Text style={styles.ProductoTxt}>Descripcion</Text>
+                                <Text style={styles.ProductoTxt}>Precio</Text>
+                                <Text style={styles.ProductoTxt}>Restaurante</Text>
+                            </ScrollView>
+                </View>
+                <FlatList
+                    
+                    data={productos}
+                    renderItem={({item})=>(
+                        <View style={styles.productos}>
+                            <View style={styles.row}>
+                            <Text style={styles.ProductoTxt}>{item.idShort}</Text>
+                                <Text style={styles.ProductoTxt}>{item.nombre_producto}</Text>
+                                <Text style={styles.ProductoTxt}>{item.categoria}</Text>
+                                <Text style={styles.ProductoTxt}>{item.descripcion}</Text>
+                                <Text style={styles.ProductoTxt}>{item.precio}</Text>
+                                <Text style={styles.ProductoTxt}>{item.restaurante}</Text>
+                            </View>
+                        </View>
+                    )}
+                    
+                    keyExtractor={item => item._id}
+                 />
             <ScrollView>
                 <Card style={styles.card}>
                     {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
@@ -24,10 +105,10 @@ const actProducto = ({ navigation }) => {
                     <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
                     {/* ID */}
-                    <TextInput onChangeText={(foo) => { setId(foo); }} value={id} placeholder={"ID"} keyboardType={"numeric"}
+                    <TextInput onChangeText={(foo) => { setId(foo); }} value={id} placeholder={"Id a modificar"} keyboardType={"numeric"}
                         style={styles.forminput}
                     />
-
+                    <View><Text style={styles.Titletxt}>Introduce los nuevos datos:</Text></View>
                     {/* NOMBRE */}
                     <TextInput onChangeText={(foo) => { setTitle(foo); }} value={title} placeholder={"Producto"} keyboardType={"default"}
                         style={styles.forminput}
@@ -48,6 +129,11 @@ const actProducto = ({ navigation }) => {
                         style={styles.forminput}
                     />
 
+                    {/* RESTAURANTE    */}
+                    <TextInput onChangeText={(foo) => { setRest(foo); }} value={restaurante} placeholder={"Restaurante"} keyboardType={"default"}
+                        style={styles.forminput}
+                    />
+
                     {/* BOTONES DE OPCIONES */}
                     <View style={styles.botones}>
 
@@ -55,7 +141,7 @@ const actProducto = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.Enviar}>
+                        <TouchableOpacity onPress={btnActualizar} style={styles.Enviar}>
                             <Text style={styles.btnTxt}>Actualizar</Text>
                         </TouchableOpacity>
                     </View>
@@ -82,7 +168,7 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 700,
+        height: 800,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
@@ -199,4 +285,23 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
+    productos:{
+        flexDirection:"row",
+        justifyContent:"center",
+        padding:10,
+        borderBottomWidth:1
+    },
+    row:{
+        flexDirection:"row"
+    },
+    ProductoTxt:{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        fontSize: 14,
+        marginTop: 5,
+        marginLeft:12,
+        marginRight:12,
+        fontWeight: "bold",
+        color: "#FF6347",
+    }
 });

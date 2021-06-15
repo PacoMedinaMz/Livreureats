@@ -3,10 +3,23 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, } from "re
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 import CardPer from '../Pantallas/CardPer';
 import { FlatList } from 'react-native-gesture-handler';
-import { personal } from '../Pantallas/data';
+//import { personal } from '../Pantallas/data';
 
 const conPersonal = ({ navigation }) => {
-
+    const [personal,setPersonal]= React.useState([]);
+    React.useEffect(()=>{
+        
+        api();
+        
+    },[]);
+    async function api(){
+        await fetch("http://192.168.2.2:3000/busPersonal")
+        .then((res) => res.json())
+        .then((json) => {
+            setPersonal(json.data);
+            
+        });
+    }
 
     const renderItem = ({ item }) => {
         return (
@@ -23,7 +36,7 @@ const conPersonal = ({ navigation }) => {
                     <FlatList
                         data={personal}
                         renderItem={renderItem}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item._id}
                     />
                     {/* BOTONES DE OPCIONES */}
                 </View>

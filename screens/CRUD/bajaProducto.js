@@ -1,9 +1,60 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, ActivityIndicator, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 
 const BajaProducto = ({ navigation }) => {
-
+    var url="http://192.168.2.2:3000/busProductos";
+    
+    
+    const [loading,setLoading]=React.useState(false);
+    const [productos,setProductos]=React.useState([]);
+    var prod=[];
+    //console.log("res "+ productos);
+    React.useEffect(()=>{
+        setLoading(true);
+        api();
+        //console.log(json);
+        console.log(productos);
+    },[]);
+    async function api(){
+        await fetch(url)
+        .then((res) => res.json())
+        .then((json) => {
+            setProductos(json.data);
+            prod=json.data;
+            setLoading(false);
+            console.log(json.data);
+            console.log("res "+ productos);
+            console.log(prod);
+        });
+    }
+    const eliminar = ()=>{
+        Alert.alert(
+            "¿Esta seguro de eliminar el producto?",
+            `Eliminara el producto con id: ${id}`,
+            [
+                {
+                    text: "Regresar",
+                    onPress: () => navigation.goBack(),
+                    style: "cancel"
+                },
+                { text: "Continuar", onPress: () => apiEliminar() }
+            ]
+        );
+    }
+    async function apiEliminar(){
+        await fetch(`http://192.168.2.2:3000/delProd/${id}`)
+        .then((res) => res.json())
+        .then((json) => {
+            setProductos(json.data);
+            prod=json.data;
+            setLoading(false);
+            console.log(json.data);
+            console.log("res "+ productos);
+            console.log(prod);
+        });
+    }
+    
     // Aqui declaro las variables que se usan en los inputs
     const [id, setId] = React.useState("");
 
@@ -23,10 +74,47 @@ const BajaProducto = ({ navigation }) => {
     //     );
 
     return (
+        
         <View style={styles.container}>
             <View style={styles.stack}>
                 <Text style={styles.Title}>Baja Producto</Text>
             </View>
+            <View >
+                { loading ?
+                    <ActivityIndicator  style={styles.loading} size="large"/>
+                    : 
+                    null
+                }
+                <View style={styles.productos}>
+                            <ScrollView style={styles.row} horizontal>
+                                 <Text style={styles.ProductoTxt}>Id</Text>
+                                <Text style={styles.ProductoTxt}>Producto</Text>
+                                <Text style={styles.ProductoTxt}>Categoria</Text>
+                                <Text style={styles.ProductoTxt}>Descripcion</Text>
+                                <Text style={styles.ProductoTxt}>Precio</Text>
+                                <Text style={styles.ProductoTxt}>Restaurante</Text>
+                            </ScrollView>
+                </View>
+                <FlatList
+                    
+                    data={productos}
+                    renderItem={({item})=>(
+                        <View style={styles.productos}>
+                            <View style={styles.row}>
+                            <Text style={styles.ProductoTxt}>{item.idShort}</Text>
+                                <Text style={styles.ProductoTxt}>{item.nombre_producto}</Text>
+                                <Text style={styles.ProductoTxt}>{item.categoria}</Text>
+                                <Text style={styles.ProductoTxt}>{item.descripcion}</Text>
+                                <Text style={styles.ProductoTxt}>{item.precio}</Text>
+                                <Text style={styles.ProductoTxt}>{item.restaurante}</Text>
+                            </View>
+                        </View>
+                    )}
+                    
+                    keyExtractor={item => item._id}
+                 />
+            </View>
+            
             <ScrollView>
                 <Card style={styles.card}>
                     {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
@@ -45,7 +133,7 @@ const BajaProducto = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.Enviar}>
+                        <TouchableOpacity style={styles.Enviar} onPress={eliminar}>
                             <Text style={styles.btnTxt}>Eliminar</Text>
                         </TouchableOpacity>
                     </View>
@@ -63,6 +151,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+    },
+    loading:{
+        margin:160,
+        color:"#00f"
     },
 
     botones: {
@@ -189,4 +281,23 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
+    productos:{
+        flexDirection:"row",
+        justifyContent:"center",
+        padding:10,
+        borderBottomWidth:1
+    },
+    row:{
+        flexDirection:"row"
+    },
+    ProductoTxt:{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        fontSize: 14,
+        marginTop: 5,
+        marginLeft:12,
+        marginRight:12,
+        fontWeight: "bold",
+        color: "#FF6347",
+    }
 });

@@ -1,17 +1,81 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 
 const BajaPersonal = ({ navigation }) => {
 
     // Aqui declaro las variables que se usan en los inputs
     const [id, setId] = React.useState("");
+    const [personal, setPersonal]= React.useState([]);
+
+    React.useEffect(()=>{
+        
+        api();
+        
+    },[]);
+    async function api(){
+        await fetch("http://192.168.2.2:3000/busPersonal")
+        .then((res) => res.json())
+        .then((json) => {
+            setPersonal(json.data);
+            
+        });
+    }
+    const btnEliminar=()=>{
+        Alert.alert(
+            "¿Esta seguro de eliminar el personal?",
+            `Eliminara el personal con id: ${id}`,
+            [
+                {
+                    text: "Regresar",
+                    onPress: () => navigation.goBack(),
+                    style: "cancel"
+                },
+                { text: "Continuar", onPress: () => apiEliminar() }
+            ]
+        );
+    }
+    async function apiEliminar(){
+        await fetch(`http://192.168.2.2:3000/delPersonal/${id}`)
+        .then((res) => res.json())
+        .then((json) => {
+            setPersonal(json.data);
+        });
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.stack}>
                 <Text style={styles.Title}>Baja Personal</Text>
             </View>
+                <View style={styles.productos}>
+                            <ScrollView style={styles.row} horizontal>
+                                 <Text style={styles.ProductoTxt}>Id</Text>
+                                <Text style={styles.ProductoTxt}>Nombre</Text>
+                                <Text style={styles.ProductoTxt}>Ap. Paterno</Text>
+                                <Text style={styles.ProductoTxt}>Ap. Materno</Text>
+                                <Text style={styles.ProductoTxt}>Sexo</Text>
+                                
+                            </ScrollView>
+                </View>
+                <FlatList
+                    
+                    data={personal}
+                    renderItem={({item})=>(
+                        <View style={styles.productos}>
+                            <View style={styles.row}>
+                            <Text style={styles.ProductoTxt}>{item.idShort}</Text>
+                                <Text style={styles.ProductoTxt}>{item.nombre}</Text>
+                                <Text style={styles.ProductoTxt}>{item.apellidoPat}</Text>
+                                <Text style={styles.ProductoTxt}>{item.apellidoMat}</Text>
+                                <Text style={styles.ProductoTxt}>{item.sexo}</Text>
+                                
+                            </View>
+                        </View>
+                    )}
+                    
+                    keyExtractor={item => item._id}
+                 />
             <ScrollView>
                 <Card style={styles.card}>
                     {/* ACA EMPIEZA EL FORM CON SUS IMPUTS */}
@@ -30,7 +94,7 @@ const BajaPersonal = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.Enviar}>
+                        <TouchableOpacity onPress={btnEliminar} style={styles.Enviar}>
                             <Text style={styles.btnTxt}>Eliminar</Text>
                         </TouchableOpacity>
                     </View>
@@ -174,4 +238,23 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
+    productos:{
+        flexDirection:"row",
+        justifyContent:"center",
+        padding:10,
+        borderBottomWidth:1
+    },
+    row:{
+        flexDirection:"row"
+    },
+    ProductoTxt:{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        fontSize: 14,
+        marginTop: 5,
+        marginLeft:12,
+        marginRight:12,
+        fontWeight: "bold",
+        color: "#FF6347",
+    }
 });

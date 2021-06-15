@@ -8,10 +8,10 @@ const CardPer = ({itemData, onPress}) => {
        <TouchableOpacity onPress={onPress}>
            <View style={styles.card}>
                <View style={styles.cardinfo}>
-                    <Text style={styles.cardTitle}>ID:{itemData.id}</Text>
+                    <Text style={styles.cardTitle}>ID:{itemData.idShort}</Text>
                     <Text style={styles.cardDetalles}>Nombre:{itemData.nombre}</Text>
-                    <Text style={styles.cardDetalles}>Apellido Paterno: {itemData.apePat}</Text>
-                    <Text style={styles.cardDetalles}>Apellido Materno: {itemData.apeMat}</Text>
+                    <Text style={styles.cardDetalles}>Apellido Paterno: {itemData.apellidoPat}</Text>
+                    <Text style={styles.cardDetalles}>Apellido Materno: {itemData.apellidoMat}</Text>
                     <Text style={styles.cardDetalles}>Sexo: {itemData.sexo}</Text>
                </View>
            </View>

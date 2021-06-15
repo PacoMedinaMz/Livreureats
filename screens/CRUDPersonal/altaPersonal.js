@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Picker } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Picker, Platform } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 const altaPersonal = ({ navigation }) => {
@@ -22,6 +22,8 @@ const altaPersonal = ({ navigation }) => {
                 }
             }
         })();
+        var band=Math.floor(Math.random() * 101);
+        setId(band);
     }, []);
 
 
@@ -41,6 +43,45 @@ const altaPersonal = ({ navigation }) => {
         }
     };
     // FUNCIONES DE CARGAR DE FOTO FIN
+
+    const btnAgregar=()=>{
+        Alert.alert(
+            "¿Esta seguro de dar de alta el personal?",
+            `Se dara de alta el producto con id: ${id}`,
+            [
+                {
+                    text: "Regresar",
+                    onPress: () => navigation.goBack(),
+                    style: "cancel"
+                },
+                { text: "Continuar", onPress: () => altaPer() }
+            ]
+        );
+    }
+    function altaPer(){
+        let data = {
+            idShort: id,
+            nombre: nombre,
+            apellidoPat:apePat,
+            apellidoMat: apeMat,
+            sexo: sexo,
+            
+            
+            //image: image,
+        };
+
+        console.log("Objeto:", JSON.stringify(data));
+
+        const response = fetch("http://192.168.2.2:3000/insPersonal", {
+            method: "POST",
+            headers: {
+                "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log("Respuesta:", response);
+    }
     return (
         <View style={styles.container}>
             <View style={styles.stack}>
@@ -53,8 +94,8 @@ const altaPersonal = ({ navigation }) => {
                     <View><Text style={styles.Titletxt}>Introduce los siguientes datos:</Text></View>
 
                     {/* ID */}
-                    <TextInput onChangeText={(foo) => { setId(foo); }} value={id} placeholder={"ID"} keyboardType={"numeric"}
-                        style={styles.forminput}
+                    <TextInput value={id} placeholder={`Id aleatorio: ${id}`} keyboardType={"numeric"}
+                        style={styles.forminput} disabled
                     />
 
                     {/* NOMBRE */}
@@ -81,8 +122,8 @@ const altaPersonal = ({ navigation }) => {
                             onValueChange={(itemValue, itemIndex) => setSexo(itemValue)}
                         >
 
-                            <Picker.Item label="Hombre" value="H" />
-                            <Picker.Item label="Mujer" value="M" />
+                            <Picker.Item label="Hombre" value="Hombre" />
+                            <Picker.Item label="Mujer" value="Mujer" />
                         </Picker>
                     </View>
 
@@ -99,7 +140,7 @@ const altaPersonal = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.Enviar}>
+                        <TouchableOpacity onPress={btnAgregar} style={styles.Enviar}>
                             <Text style={styles.btnTxt}>Agregar</Text>
                         </TouchableOpacity>
                     </View>

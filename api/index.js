@@ -211,6 +211,51 @@ app.delete('/deleteRes', (req, res) =>{
     });
 });
 
+//Actualizar tablas
+app.put('/actUsua', (req, res) =>{
+    console.log(req.body);
+
+    Usuario.updateOne({id:req.body.id}, {$set:{
+        nombre:req.body.nombre, 
+        apellidoMat:req.body.apellidoMat, 
+        apellidoPat:req.body.apellidoPat, 
+        //fecha:req.body.fecha,
+        sexo:req.body.sexo,
+        tarjeta:req.body.tarjeta,
+        dir:req.body.dir,
+        pass:req.body.pass,
+    }})
+    .then(doc=>{
+        console.log("Dato actualizado", doc);
+        res.json({response: "ok"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.put('/actProd', (req, res) =>{
+    console.log(req.body);
+
+    Usuario.updateOne({id:req.body.id}, {$set:{
+        nombre:req.body.nombre, 
+        apellidoMat:req.body.apellidoMat, 
+        apellidoPat:req.body.apellidoPat, 
+        //fecha:req.body.fecha,
+        sexo:req.body.sexo,
+        tarjeta:req.body.tarjeta,
+        dir:req.body.dir,
+        pass:req.body.pass,
+    }})
+    .then(doc=>{
+        console.log("Dato actualizado", doc);
+        res.json({response: "ok"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
 app.listen(port, ()=>{
     console.log(`Servidor funcionando en el puerto:  ${port}`);
 });

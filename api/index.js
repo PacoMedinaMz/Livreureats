@@ -40,6 +40,9 @@ app.get('/', (req, res)=>{
 
 });
 
+//Altas
+
+//Alta de usuario
 app.post('/insUsu', (req, res) =>{
     console.log(req);
 
@@ -54,13 +57,11 @@ app.post('/insUsu', (req, res) =>{
         dir:req.body.dir,
         pass:req.body.pass
     });
-    //Mongoose
     
     usuario.save()
     .then(doc=>{
         console.log("Dato insertado", doc);
         console.log(req.body);
-        //console.log(json);
         res.json({response: "exito"});
     }).catch(err =>{
         res.json({response: "error"});
@@ -68,6 +69,7 @@ app.post('/insUsu', (req, res) =>{
     });
 });
 
+//Alta de productos
 app.post('/insPro', (req, res) =>{
     console.log(req);
 
@@ -79,20 +81,63 @@ app.post('/insPro', (req, res) =>{
         precio: req.body.precio,
         restaurante: req.body.restaurante
     });
-    //Mongoose
     
     producto.save()
     .then(doc=>{
         console.log("Dato insertado", doc);
-        //console.log(req.body);
-        //console.log(json);
         res.json({response: "exito"});
     }).catch(err =>{
-        //res.json({response: "error"});
         console.log("Error: ", err.message);
     });
 });
 
+//Altas de pedidos
+app.post('/carrito', (req, res) =>{
+    console.log(req);
+    let now= new Date();
+
+    const pedido = new Pedido({
+        id:Math.round(Math.random() * (10000 - 1) + 1), 
+        fecha: now.toDateString(), 
+        productos:req.body.productos, 
+        costoEnvio:Math.round(Math.random() * (30 - 10) + 10)
+    });
+  
+    pedido.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        console.log(req.body);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+//Alta de restaurantes
+app.post('/insRes', (req, res) =>{
+    console.log(req);
+
+    const restaurante = new Restaurante({
+        nombre:req.body.nombre, 
+        ubicacion:req.body.ubicacion, 
+        des:req.body.des, 
+        horario:req.body.horario, 
+        id:Math.round(Math.random() * (10000 - 1) + 1), 
+        passRes:req.body.passRes
+    });
+    
+    restaurante.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        console.log("Error: ", err.message);
+    });
+});
+
+//Consultas
+//Consulta de producto en especifico de un restaurante
 app.post('/buscar', (req, res) =>{
     console.log(req);
     
@@ -107,6 +152,7 @@ app.post('/buscar', (req, res) =>{
     });
 });
 
+//Busqueda general de producto
 app.post('/busProd', (req, res) =>{
     console.log(req);
     
@@ -121,6 +167,9 @@ app.post('/busProd', (req, res) =>{
     });
 });
 
+
+//Dar de baja
+//Borrar un producto
 app.delete('/deleteProd', (req, res) =>{
     console.log(req);
     Producto.findByIdAndDelete({id:req.body.id})
@@ -134,6 +183,7 @@ app.delete('/deleteProd', (req, res) =>{
     });
 });
 
+//Eliminar un usuario
 app.delete('/deleteUsua', (req, res) =>{
     console.log(req);
     Usuario.findByIdAndDelete({id:req.body.id})
@@ -147,49 +197,16 @@ app.delete('/deleteUsua', (req, res) =>{
     });
 });
 
-app.post('/carrito', (req, res) =>{
+//Eliminar un restaurante
+app.delete('/deleteRes', (req, res) =>{
     console.log(req);
-    let now= new Date();
-
-    const pedido = new Pedido({
-        id:Math.round(Math.random() * (10000 - 1) + 1), 
-        fecha: now.toDateString(), 
-        productos:req.body.productos, 
-        costoEnvio:Math.round(Math.random() * (30 - 10) + 10)
-    });
-    //Mongoose
-  
-    pedido.save()
+    Restaurante.findByIdAndDelete({id:req.body.id})
+    
     .then(doc=>{
-        console.log("Dato insertado", doc);
-        console.log(req.body);
-        //console.log(json);
-        res.json({response: "exito"});
+        console.log("Dato eliminado", doc);
+        res.json({response: "Eliminado"});
     }).catch(err =>{
         res.json({response: "error"});
-        console.log("Error: ", err.message);
-    });
-});
-
-app.post('/insRes', (req, res) =>{
-    console.log(req);
-
-    const restaurante = new Restaurante({
-        nombre:req.body.nombre, 
-        ubicacion:req.body.ubicacion, 
-        des:req.body.des, 
-        horario:req.body.horario, 
-        id:Math.round(Math.random() * (10000 - 1) + 1), 
-        passRes:req.body.passRes
-    });
-    //Mongoose
-    
-    restaurante.save()
-    .then(doc=>{
-        console.log("Dato insertado", doc);
-        res.json({response: "exito"});
-    }).catch(err =>{
-        //res.json({response: "error"});
         console.log("Error: ", err.message);
     });
 });

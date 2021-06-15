@@ -41,7 +41,7 @@ const Carrito = ({ navigation }) => {
     let pedido = { productos: productos };
     console.log(JSON.stringify(pedido));
 
-    const response = fetch("http://localhost:3000/carrito", {
+    const response = fetch("http://192.168.1.76:3000/carrito", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

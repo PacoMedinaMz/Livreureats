@@ -19,13 +19,22 @@ const Carrito = ({ navigation }) => {
   const [uri, setUri] = React.useState("");
 
   function realizarPedido() {
+    if (!items || items.length <= 0) {
+      alert("Tu carrito está vacío.");
+      return;
+    }
     createPDF();
   }
 
   async function createPDF() {
     let extraHtml = "";
+    let totalPrecio = 0.0;
     items.map((item, i) => {
-      extraHtml += "</br>" + item.title;
+      totalPrecio += parseFloat(item.precio);
+      extraHtml += `<tr>
+      <td>${item.title}</td>
+      <td>$${item.precio}</td>
+    </tr>`;
     });
 
     const htmlContent = `
@@ -47,22 +56,22 @@ const Carrito = ({ navigation }) => {
         font-size: 35px;
         padding-bottom: 20px;
         padding-top: 74px;
+        width: 213px;
       }
     </style>
   </head>
   <body>
+    <h2>Factura electrónica de tu pedido</h2>
+
     <table>
       <tr>
         <th>Producto</th>
         <th>Precio</th>
       </tr>
-      <tr>
-        <td>Pastel</td>
-        <td>$12</td>
-      </tr>
+      ${extraHtml}
       <tr>
         <th>Total</th>
-        <th>$123</th>
+        <th>$${totalPrecio}</th>
       </tr>
     </table>
 

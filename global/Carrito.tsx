@@ -6,6 +6,16 @@ export function addItem(item: any) {
 
 export function removeItem(id: any) {
   delete items[id + ""];
+
+  let limpiar = true;
+  items.map((item: any) => {
+    if (item !== undefined) {
+      limpiar = false;
+    }
+  });
+  if (limpiar) {
+    items = [];
+  }
 }
 
 export default { addItem, removeItem };

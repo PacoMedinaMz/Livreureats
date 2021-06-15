@@ -32,43 +32,41 @@ const Orden = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View>
-          <Card style={styles.CardTitle}>
-            <Text style={styles.TitleCard}>{itemData.title}</Text>
+    
+        <Card style={styles.CardTitle}>
+          <Text style={styles.TitleCard}>{itemData.title}</Text>
+        </Card>
+
+        <Card style={styles.cardCont}>
+          {/* IMAGEN */}
+          <Image style={styles.img} source={itemData.image} />
+
+          {/* TITULO */}
+          <Text style={styles.cardtxttitle}>{itemData.title}</Text>
+
+          {/* DESCRIPCION */}
+          <Text style={styles.cardtxt}>{itemData.description}</Text>
+
+          {/* CATEGORIAS */}
+          <Card style={styles.cat}>
+            <Text style={styles.cardtxtcat}>{itemData.categories}</Text>
           </Card>
 
-          <Card style={styles.cardCont}>
-            {/* IMAGEN */}
-            <Image style={styles.img} source={itemData.image} />
+          {/* PRECIO */}
+          <Text style={styles.cardprecio}>${itemData.precio} MXN</Text>
 
-            {/* TITULO */}
-            <Text style={styles.cardtxttitle}>{itemData.title}</Text>
+          {/* BOTONES */}
+          <TouchableOpacity
+            style={styles.cardbtn}
+            onPress={() => anadirAlCarrito(itemData)}
+          >
+            <Text style={styles.cardtxtbtn}>
+              Añadir al Carrito{" "}
+              <Feather name="shopping-cart" size={22} color="white" />
+            </Text>
+          </TouchableOpacity>
+        </Card>
 
-            {/* DESCRIPCION */}
-            <Text style={styles.cardtxt}>{itemData.description}</Text>
-
-            {/* CATEGORIAS */}
-            <Card style={styles.cat}>
-              <Text style={styles.cardtxtcat}>{itemData.categories}</Text>
-            </Card>
-
-            {/* PRECIO */}
-            <Text style={styles.cardprecio}>${itemData.precio} MXN</Text>
-
-            {/* BOTONES */}
-            <TouchableOpacity
-              style={styles.cardbtn}
-              onPress={() => anadirAlCarrito(itemData)}
-            >
-              <Text style={styles.cardtxtbtn}>
-                Añadir al Carrito{" "}
-                <Feather name="shopping-cart" size={22} color="white" />
-              </Text>
-            </TouchableOpacity>
-          </Card>
-        </View>
-      </ScrollView>
     </View>
   );
 };
@@ -141,7 +139,7 @@ const styles = StyleSheet.create({
   cardCont: {
     marginTop: 15,
     width: 350,
-    height: 750,
+    height: 600,
     alignSelf: "center",
     borderRadius: 25,
   },

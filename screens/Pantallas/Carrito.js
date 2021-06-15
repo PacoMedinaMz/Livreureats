@@ -28,6 +28,24 @@ const Carrito = ({ navigation }) => {
       alert("Tu carrito está vacío.");
       return;
     }
+
+    let data = [];
+    items.map((item, i) => {
+      let producto = {};
+      producto.cantidad = 1;
+      producto.precio = parseFloat(item.precio);
+      producto.nombre = item.title;
+      data.push(producto);
+    });
+
+    const response = fetch("https://localhost:3000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
     createPDF();
   }
 

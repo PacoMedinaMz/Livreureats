@@ -212,6 +212,8 @@ app.delete('/deleteRes', (req, res) =>{
 });
 
 //Actualizar tablas
+//En caso de no necesitar un campo, solo comentalo
+
 app.put('/actUsua', (req, res) =>{
     console.log(req.body);
 
@@ -243,6 +245,25 @@ app.put('/actProd', (req, res) =>{
         categoria:req.body.categoria,
         precio:req.body.precio, 
         restaurante:req.body.restaurante,
+    }})
+    .then(doc=>{
+        console.log("Dato actualizado", doc);
+        res.json({response: "ok"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.put('/actRes', (req, res) =>{
+    console.log(req.body);
+
+    Restaurante.updateOne({id:req.body.id}, {$set:{
+        nombre:req.body.nombre, 
+        ubicacion:req.body.ubicacion, 
+        des:req.body.des, 
+        horario:req.body.horario, 
+        passRes:req.body.passRes
     }})
     .then(doc=>{
         console.log("Dato actualizado", doc);

@@ -112,6 +112,33 @@ app.post('/busProd', (req, res) =>{
     });
 });
 
+app.delete('/deleteProd', (req, res) =>{
+    console.log(req);
+    Producto.findByIdAndDelete({_id:req.body.id})
+    
+    .then(doc=>{
+        console.log("Dato eliminado", doc);
+        res.json({response: "Eliminado"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.delete('/deleteUsua', (req, res) =>{
+    console.log(req);
+    Usuario.findByIdAndDelete({_id:req.body.id})
+    
+    .then(doc=>{
+        console.log("Dato eliminado", doc);
+        res.json({response: "Eliminado"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+
 app.listen(port, ()=>{
     console.log(`Servidor funcionando en el puerto:  ${port}`);
 });

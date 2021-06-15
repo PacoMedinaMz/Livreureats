@@ -29,7 +29,11 @@ const Producto = mongoose.model('producto', {nombre_producto:String, descripcion
     precio:String, restaurante:String, id:Number}, 'producto');
 
 const Pedido = mongoose.model('pedido', {id:Number, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
+
+const Restaurante = mongoose.model('restaurante', {nombre:String, ubicacion:String, des:String, horario:String, 
+    id:Number, passRes:String}, 'restaurante');
     
+
 
 app.get('/', (req, res)=>{
     res.send("Hola");
@@ -40,7 +44,7 @@ app.post('/insUsu', (req, res) =>{
     console.log(req);
 
     const usuario = new Usuario({
-        id:req.body.id,
+        id:Math.round(Math.random() * (10000 - 1) + 1),
         nombre: req.body.nombre,
         apellidoMat:req.body.apellidoMat,
         apellidoPat:req.body.apellidoPat,
@@ -68,7 +72,7 @@ app.post('/insPro', (req, res) =>{
     console.log(req);
 
     const producto = new Producto({
-        id:req.body.id,
+        id:Math.round(Math.random() * (10000 - 1) + 1),
         nombre_producto: req.body.nombre_producto, 
         descripcion: req.body.descripcion,
         categoria: req.body.categoria,
@@ -163,6 +167,29 @@ app.post('/carrito', (req, res) =>{
         res.json({response: "exito"});
     }).catch(err =>{
         res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.post('/insRes', (req, res) =>{
+    console.log(req);
+
+    const restaurante = new Restaurante({
+        nombre:req.body.nombre, 
+        ubicacion:req.body.ubicacion, 
+        des:req.body.des, 
+        horario:req.body.horario, 
+        id:Math.round(Math.random() * (10000 - 1) + 1), 
+        passRes:req.body.passRes
+    });
+    //Mongoose
+    
+    restaurante.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        //res.json({response: "error"});
         console.log("Error: ", err.message);
     });
 });

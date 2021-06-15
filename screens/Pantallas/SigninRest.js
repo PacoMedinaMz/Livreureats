@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Pressable } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 
@@ -51,11 +51,12 @@ const SigninRest = ({ navigation }) => {
             image: image,
             des: des,
             horario: horario,
+            passRes:passRes
         };
 
         console.log("Objeto:", JSON.stringify(data));
 
-        const response = fetch("https://localhost:", {
+        const response = fetch("http://localhost:3000/insRes", {
             method: "POST",
             headers: {
                 "Content-Type":
@@ -109,7 +110,7 @@ const SigninRest = ({ navigation }) => {
                     />
 
                     {/* HORARIO */}
-                    <TextInput onChangeText={(foo) => { setHor(foo); }} value={des} placeholder={"Horario"} keyboardType={"default"}
+                    <TextInput onChangeText={(foo) => { setHor(foo); }} value={horario} placeholder={"Horario"} keyboardType={"default"}
                         style={styles.forminput}
                     />
 
@@ -134,9 +135,25 @@ const SigninRest = ({ navigation }) => {
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={Enviado} style={styles.Enviar}>
-                            <Text style={styles.btnTxt}>Registrarse</Text>
-                        </TouchableOpacity>
+                        <Pressable style={styles.Enviar} onPress={() => {
+                            fetch('http://192.168.1.76:3000/insRes', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': "application/json"
+                                }, body: JSON.stringify({
+                                        nombre: nombre,
+                                        ubicacion: ubicacion,
+                                        image: image,
+                                        des: des,
+                                        horario: horario,
+                                        passRes:passRes
+                                })
+                            }).then(() => {
+                                console.log("Datos enviados...")
+                            })
+                        }}>
+                            <Text style={styles.btnTxt}>Enviar</Text>
+                        </Pressable>
                     </View>
 
                 </Card>

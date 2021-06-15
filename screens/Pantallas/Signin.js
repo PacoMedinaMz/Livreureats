@@ -155,7 +155,7 @@ const Signin = ({ navigation }) => {
 
 
                         <Pressable style={styles.Enviar} onPress={() => {
-                            fetch('http://localhost:3000/insUsu', {
+                            fetch('http://192.168.1.76:3000/insUsu', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': "application/json"

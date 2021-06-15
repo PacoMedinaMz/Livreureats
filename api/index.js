@@ -237,15 +237,12 @@ app.put('/actUsua', (req, res) =>{
 app.put('/actProd', (req, res) =>{
     console.log(req.body);
 
-    Usuario.updateOne({id:req.body.id}, {$set:{
-        nombre:req.body.nombre, 
-        apellidoMat:req.body.apellidoMat, 
-        apellidoPat:req.body.apellidoPat, 
-        //fecha:req.body.fecha,
-        sexo:req.body.sexo,
-        tarjeta:req.body.tarjeta,
-        dir:req.body.dir,
-        pass:req.body.pass,
+    Producto.updateOne({id:req.body.id}, {$set:{
+        nombre_producto:req.body.nombre_producto, 
+        descripcion:req.body.descripcion, 
+        categoria:req.body.categoria,
+        precio:req.body.precio, 
+        restaurante:req.body.restaurante,
     }})
     .then(doc=>{
         console.log("Dato actualizado", doc);

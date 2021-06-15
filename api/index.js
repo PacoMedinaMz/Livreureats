@@ -25,7 +25,8 @@ conexion.once('error', (err)=>{
 const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String, 
     apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String}, 'usuario');
 
-const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String, precio:String}, 'producto');
+const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
+    precio:String, restaurante:string}, 'producto');
 
 app.get('/', (req, res)=>{
     res.send("Hola");
@@ -66,7 +67,8 @@ app.post('/insPro', (req, res) =>{
         nombre_producto: req.body.nombre_producto, 
         descripcion: req.body.descripcion,
         categoria: req.body.categoria,
-        precio: req.body.precio
+        precio: req.body.precio,
+        restaurante: req.body.restaurante
     });
     //Mongoose
     

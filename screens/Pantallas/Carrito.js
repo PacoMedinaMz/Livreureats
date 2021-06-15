@@ -29,21 +29,24 @@ const Carrito = ({ navigation }) => {
       return;
     }
 
-    let data = [];
+    let productos = [];
     items.map((item, i) => {
       let producto = {};
       producto.cantidad = 1;
       producto.precio = parseFloat(item.precio);
       producto.nombre = item.title;
-      data.push(producto);
+      productos.push(producto);
     });
+
+    let pedido = { productos: productos };
+    console.log(JSON.stringify(pedido));
 
     const response = fetch("https://localhost:3000", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(pedido),
     });
 
     createPDF();

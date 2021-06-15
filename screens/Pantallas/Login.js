@@ -52,6 +52,7 @@ const Login = ({ navigation }) => {
                 <TextInput secureTextEntry={true} onChangeText={(foo) => { setPassLog(foo); }} value={passLog} placeholder={"Contraseña"} style={styles.forminput} keyboardType={'phone-pad'} />
 
 
+               
                 {/* BOTONES */}
                 <TouchableOpacity onPress={() => navigation.popToTop()} style={styles.Enviar}>
                     <Text style={styles.btnTxt}>Ingresar</Text>

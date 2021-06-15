@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Picker, Button, Pressable } from "react-native"
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput, Card } from "react-native-paper";
 import DatePicker from 'react-native-datepicker';
-import ImagePicker from 'react-native-image-picker';
-
-
+import * as ImagePicker from 'expo-image-picker';
 const Signin = ({ navigation }) => {
     // Aqui declaro las variables que se usan en los inputs
+
 
     // USUARIO
     const [nombre, setNombre] = React.useState("");
@@ -16,29 +15,42 @@ const Signin = ({ navigation }) => {
     const [fecha = { date: "2016-05-15" }, setfechaNac] = React.useState("");
     const [sexo, setSexo] = React.useState("");
     const [tarjeta, setTarjeta] = React.useState("");
-    const [img, setImg] = React.useState("");
+    const [image, setImage] = React.useState("");
     const [dir, setDir] = React.useState("");
     const [pass, setPass] = React.useState("");
 
+    // FUNCIONES DE CARGAR DE FOTO
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
 
-    //ALERT
-    {
-        {/*const Enviado = () =>
-        Alert.alert(
-            "Registrado",
-            "Tu cuenta ha sido registrada exitosamente",
-            [
-                {
-                    text: "Regresar",
-                    onPress: () => navigation.goBack(),
-                    style: "cancel"
-                },
-                { text: "Continuar", onPress: () => navigation.navigate("Login") }
-            ]
-        );*/}
-    }
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
+    };
+    // FUNCIONES DE CARGAR DE FOTO FIN
 
     return (
+
         <View style={styles.container}>
             <View style={styles.stack}>
                 <Text style={styles.Title}>Registro Usuario</Text>
@@ -124,6 +136,13 @@ const Signin = ({ navigation }) => {
                         style={styles.forminput}
                     />
 
+                    {/* FOTO */}
+                    <TouchableOpacity style={styles.btnfoto} title="Imagen" onPress={pickImage}>
+                        <Text style={styles.textfoto}>Foto</Text>
+                    </TouchableOpacity>
+                    {<Image source={{ uri: image }} style={styles.fotocard} />}
+
+
 
                     {/* BOTONES DE OPCIONES*/}
                     <View style={styles.botones}>
@@ -131,6 +150,9 @@ const Signin = ({ navigation }) => {
                         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.Regresar}>
                             <Text style={styles.btnTxt}>Regresar</Text>
                         </TouchableOpacity>
+
+
+
 
                         <Pressable style={styles.Enviar} onPress={() => {
                             fetch('http://localhost:3000/insUsu', {
@@ -184,7 +206,25 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
     },
+    fotocard: {
+        width: 100,
+        height: 100,
+        marginBottom: 25,
+        marginTop: 10,
+        alignSelf: 'center',
+        borderRadius: 25,
+    },
+    btnfoto: {
+        width: "29%",
+        height: 50,
+        backgroundColor: '#FF6347',
+        borderRadius: 25,
+        alignSelf: "center",
+        alignContent: "center",
+        alignItems: "center",
+        marginTop: 30
 
+    },
     sexlbl: {
         flexDirection: 'row',
         alignSelf: 'center',
@@ -213,7 +253,7 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 1100,
+        height: 1300,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
@@ -273,6 +313,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 40,
         fontSize: 20,
+        color: '#fff',
+    },
+
+    textfoto: {
+        alignSelf: 'center',
+        fontSize: 20,
+        marginTop: 10,
         color: '#fff',
     },
     Cardinf: {

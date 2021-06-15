@@ -1,23 +1,54 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from "react-native"
 import { TextInput, Card } from "react-native-paper";
+import * as ImagePicker from 'expo-image-picker';
 
 const SigninRest = ({ navigation }) => {
 
     // Aqui declaro las variables que se usan en los inputs
     const [nombre, setNombre] = React.useState("");
     const [ubicacion, setUbi] = React.useState("");
-    const [img, setImg] = React.useState("");
+    const [image, setImage] = React.useState("");
     const [des, setDes] = React.useState("");
     const [horario, setHor] = React.useState("");
     const [passRes, setPassRes] = React.useState("");
+
+    // FUNCIONES DE CARGAR DE FOTO
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
+
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
+    };
+    // FUNCIONES DE CARGAR DE FOTO FIN
 
     //Funcion que envia los datos
     function Enviar() {
         let data = {
             nombre: nombre,
             ubicacion: ubicacion,
-            img: img,
+            image: image,
             des: des,
             horario: horario,
         };
@@ -67,12 +98,12 @@ const SigninRest = ({ navigation }) => {
                         style={styles.forminput}
                     />
 
-                    {/* RESTAURANTE */}
+                    {/* UBICACION */}
                     <TextInput onChangeText={(foo) => { setUbi(foo); }} value={ubicacion} placeholder={"Ubicación"} keyboardType={"default"}
                         style={styles.forminput}
                     />
 
-                    {/* RESTAURANTE */}
+                    {/* DESCRIPCION */}
                     <TextInput onChangeText={(foo) => { setDes(foo); }} value={des} placeholder={"Descripción"} keyboardType={"default"}
                         style={styles.forminput}
                     />
@@ -86,6 +117,15 @@ const SigninRest = ({ navigation }) => {
                     <TextInput secureTextEntry={true} onChangeText={(foo) => { setPassRes(foo); }} value={passRes} placeholder={"Contraseña"} keyboardType={"default"}
                         style={styles.forminput}
                     />
+
+
+                    {/* FOTO */}
+                    <TouchableOpacity style={styles.btnfoto} title="Imagen" onPress={pickImage}>
+                        <Text style={styles.textfoto}>Foto</Text>
+                    </TouchableOpacity>
+                    {<Image source={{ uri: image }} style={styles.fotocard} />}
+
+
 
                     {/* BOTONES DE OPCIONES */}
                     <View style={styles.botones}>
@@ -121,7 +161,7 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 600,
+        height: 780,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
@@ -137,7 +177,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#EA593F',
         alignSelf: 'center',
         width: 424,
-
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
     },
@@ -157,7 +196,12 @@ const styles = StyleSheet.create({
         color: "#FF6347",
         marginBottom: 20,
     },
-
+    textfoto: {
+        alignSelf: 'center',
+        fontSize: 20,
+        marginTop: 10,
+        color: '#fff',
+    },
     Titletxt2: {
         fontSize: 18,
         marginTop: 35,
@@ -191,7 +235,25 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         position: 'absolute',
     },
+    fotocard: {
+        width: 100,
+        height: 100,
+        marginBottom: 25,
+        marginTop: 10,
+        alignSelf: 'center',
+        borderRadius: 25,
+    },
+    btnfoto: {
+        width: "29%",
+        height: 50,
+        backgroundColor: '#FF6347',
+        borderRadius: 25,
+        alignSelf: "center",
+        alignContent: "center",
+        alignItems: "center",
+        marginTop: 30
 
+    },
     stack: {
         alignItems: "center",
         justifyContent: "center",
@@ -221,7 +283,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 0,
         paddingVertical: 10,
-        marginTop: 30,
         marginLeft: 20,
     },
     Regresar: {
@@ -233,7 +294,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 0,
         paddingVertical: 10,
-        marginTop: 30,
 
     },
     Login: {

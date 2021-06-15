@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Picker } from "react-native"
 import { TextInput, Card } from "react-native-paper";
-
+import * as ImagePicker from 'expo-image-picker';
 const altaPersonal = ({ navigation }) => {
 
     // Aqui declaro las variables que se usan en los inputs
@@ -10,7 +10,37 @@ const altaPersonal = ({ navigation }) => {
     const [apePat, setApePat] = React.useState("");
     const [apeMat, setApeMat] = React.useState("");
     const [sexo, setSexo] = React.useState("");
+    const [image, setImage] = React.useState("");
 
+    // FUNCIONES DE CARGAR DE FOTO
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
+
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
+    };
+    // FUNCIONES DE CARGAR DE FOTO FIN
     return (
         <View style={styles.container}>
             <View style={styles.stack}>
@@ -56,6 +86,12 @@ const altaPersonal = ({ navigation }) => {
                         </Picker>
                     </View>
 
+                    {/* FOTO */}
+                    <TouchableOpacity style={styles.btnfoto} title="Imagen" onPress={pickImage}>
+                        <Text style={styles.textfoto}>Foto</Text>
+                    </TouchableOpacity>
+                    {<Image source={{ uri: image }} style={styles.fotocard} />}
+
                     {/* BOTONES DE OPCIONES */}
                     <View style={styles.botones}>
 
@@ -90,11 +126,11 @@ const styles = StyleSheet.create({
 
     card: {
         width: 380,
-        height: 600,
+        height: 780,
         alignContent: 'center',
         alignSelf: 'center',
         padding: 15,
-        marginTop: 90,
+        marginTop: 50,
         borderRadius: 25,
         borderColor: '#D9D9D9',
         borderBottomWidth: 2,
@@ -205,8 +241,32 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 0,
         paddingVertical: 10,
-        marginTop: 30,
         marginLeft: 20,
+    },
+    textfoto: {
+        alignSelf: 'center',
+        fontSize: 20,
+        marginTop: 10,
+        color: '#fff',
+    },
+    fotocard: {
+        width: 100,
+        height: 100,
+        marginBottom: 25,
+        marginTop: 10,
+        alignSelf: 'center',
+        borderRadius: 25,
+    },
+    btnfoto: {
+        width: "29%",
+        height: 50,
+        backgroundColor: '#FF6347',
+        borderRadius: 25,
+        alignSelf: "center",
+        alignContent: "center",
+        alignItems: "center",
+        marginTop: 30
+
     },
     Regresar: {
         width: "35%",
@@ -217,7 +277,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 0,
         paddingVertical: 10,
-        marginTop: 30,
 
     },
     Login: {

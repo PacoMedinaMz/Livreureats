@@ -25,14 +25,16 @@ conexion.once('error', (err)=>{
 const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String, 
     apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String, id:String}, 'usuario');
 
-const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
-    precio:String, restaurante:String, id:String}, 'producto');
+    const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
+        precio:String, idShort:String, restaurante:String}, 'producto');
 
 const Pedido = mongoose.model('pedido', {id:String, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
 
 const Restaurante = mongoose.model('restaurante', {nombre:String, ubicacion:String, des:String, horario:String, 
     id:String, passRes:String}, 'restaurante');
-    
+
+const Personal = mongoose.model('personal', {idShort:String,nombre:String,apellidoPat:String,
+        apellidoMat:String, sexo:String}, 'personal'); 
 
 
 app.get('/', (req, res)=>{
@@ -74,11 +76,11 @@ app.post('/insPro', (req, res) =>{
     console.log(req);
 
     const producto = new Producto({
-        id:Math.round(Math.random() * (10000 - 1) + 1),
         nombre_producto: req.body.nombre_producto, 
         descripcion: req.body.descripcion,
         categoria: req.body.categoria,
         precio: req.body.precio,
+        idShort: req.body.id,
         restaurante: req.body.restaurante
     });
     
@@ -236,24 +238,24 @@ app.put('/actUsua', (req, res) =>{
     });
 });
 
-app.put('/actProd', (req, res) =>{
-    console.log(req.body);
+// app.put('/actProd', (req, res) =>{
+//     console.log(req.body);
 
-    Producto.updateOne({id:req.body.id}, {$set:{
-        nombre_producto:req.body.nombre_producto, 
-        descripcion:req.body.descripcion, 
-        categoria:req.body.categoria,
-        precio:req.body.precio, 
-        restaurante:req.body.restaurante,
-    }})
-    .then(doc=>{
-        console.log("Dato actualizado", doc);
-        res.json({response: "ok"});
-    }).catch(err =>{
-        res.json({response: "error"});
-        console.log("Error: ", err.message);
-    });
-});
+//     Producto.updateOne({id:req.body.id}, {$set:{
+//         nombre_producto:req.body.nombre_producto, 
+//         descripcion:req.body.descripcion, 
+//         categoria:req.body.categoria,
+//         precio:req.body.precio, 
+//         restaurante:req.body.restaurante,
+//     }})
+//     .then(doc=>{
+//         console.log("Dato actualizado", doc);
+//         res.json({response: "ok"});
+//     }).catch(err =>{
+//         res.json({response: "error"});
+//         console.log("Error: ", err.message);
+//     });
+// });
 
 app.put('/actRes', (req, res) =>{
     console.log(req.body);
@@ -276,4 +278,148 @@ app.put('/actRes', (req, res) =>{
 
 app.listen(port, ()=>{
     console.log(`Servidor funcionando en el puerto:  ${port}`);
+});
+app.get('/busProductos', (req, res) =>{
+    console.log(req);
+    
+    Producto.find()
+    .then(doc=>{
+        console.log("Shi che puedo");
+        res.json({data: doc});
+    }).catch(err =>{
+        res.json({data: "error"});
+        console.log("Error: ", err.message);
+        console.log("No che pudo");
+    });
+});
+
+
+app.get('/delProd/:id', (req, res) =>{
+    console.log(req);
+    var id = req.params.id  
+    id.toString();
+    console.log(id);
+
+    Producto.remove({idShort:id})
+    
+    .then(doc=>{
+        console.log("Dato eliminado", doc);
+        res.json({response: "Eliminado"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.post('/actProd/:id', (req, res) =>{
+    console.log(req);
+    const id = req.params.id
+    console.log(id);
+    
+    const producto = new Producto({
+        nombre_producto: req.body.nombre_producto, 
+        descripcion: req.body.descripcion,
+        categoria: req.body.categoria,
+        precio: req.body.precio,
+        idShort: req.body.id,
+        restaurante: req.body.restaurante
+    });
+    Producto.updateOne({idShort:id}, {$set:{nombre_producto:producto.nombre_producto,
+    descripcion:producto.descripcion, categoria:producto.categoria,
+    precio:producto.precio, restaurante:producto.restaurante}})
+    
+    .then(doc=>{
+        console.log("Dato actualizado", doc);
+        res.json({response: "ok"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+
+// apis personal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+app.post('/insPersonal', (req, res) =>{
+    console.log(req);
+    if(req.body.sexo==""){
+        req.body.sexo="Hombre";
+    }
+
+    const personal = new Personal({
+        idShort: req.body.idShort,
+        nombre: req.body.nombre,
+        apellidoPat: req.body.apellidoPat,
+        apellidoMat:req.body.apellidoMat,
+        sexo: req.body.sexo
+    });
+    //Mongoose
+    
+    personal.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        //console.log(req.body);
+        //console.log(json);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        //res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.post('/actPersonal/:id', (req, res) =>{
+    console.log(req);
+    if(req.body.sexo==""){
+        req.body.sexo="Hombre";
+    }
+    const id = req.params.id
+    console.log(id);
+    
+    const personal = new Personal({
+        idShort: req.body.id,
+        nombre: req.body.nombre,
+        apellidoPat: req.body.apellidoPat,
+        apellidoMat:req.body.apellidoMat,
+        sexo: req.body.sexo
+    });
+    Personal.updateOne({idShort:id}, {$set:{nombre:personal.nombre,
+    apellidoPat:personal.apellidoPat, apellidoMat:personal.apellidoMat,
+    sexo:personal.sexo,}})
+    
+    .then(doc=>{
+        console.log("Dato actualizado", doc);
+        res.json({response: "ok"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
+
+app.get('/busPersonal', (req, res) =>{
+    console.log(req);
+    
+    Personal.find()
+    .then(doc=>{
+        console.log("Shi che puedo");
+        res.json({data: doc});
+    }).catch(err =>{
+        res.json({data: "error"});
+        console.log("Error: ", err.message);
+        console.log("No che pudo");
+    });
+});
+app.get('/delPersonal/:id', (req, res) =>{
+    console.log(req);
+    var id = req.params.id  
+    id.toString();
+    console.log(id);
+
+    Personal.remove({idShort:id})
+    
+    .then(doc=>{
+        console.log("Dato eliminado", doc);
+        res.json({response: "Eliminado"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
 });

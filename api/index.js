@@ -23,15 +23,15 @@ conexion.once('error', (err)=>{
 
 //Definicion
 const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String, 
-    apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String,  id:Number}, 'usuario');
+    apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String, id:String}, 'usuario');
 
 const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
-    precio:String, restaurante:String, id:Number}, 'producto');
+    precio:String, restaurante:String, id:String}, 'producto');
 
-const Pedido = mongoose.model('pedido', {id:Number, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
+const Pedido = mongoose.model('pedido', {id:String, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
 
 const Restaurante = mongoose.model('restaurante', {nombre:String, ubicacion:String, des:String, horario:String, 
-    id:Number, passRes:String}, 'restaurante');
+    id:String, passRes:String}, 'restaurante');
     
 
 
@@ -171,23 +171,23 @@ app.post('/busProd', (req, res) =>{
 //Dar de baja
 //Borrar un producto
 app.delete('/deleteProd', (req, res) =>{
-    console.log(req);
-    Producto.findByIdAndDelete({id:req.body.id})
-    
+    console.log(req.body);
+
+    Producto.deleteOne({id:req.body.id})
     .then(doc=>{
-        console.log("Dato eliminado", doc);
-        res.json({response: "Eliminado"});
+        //console.log("Dato eliminado", doc);
+        //res.json({response: "Eliminado"});
     }).catch(err =>{
-        res.json({response: "error"});
-        console.log("Error: ", err.message);
+        //res.json({response: "error"});
+        //console.log("Error: ", err.message);
     });
 });
 
 //Eliminar un usuario
 app.delete('/deleteUsua', (req, res) =>{
-    console.log(req);
-    Usuario.findByIdAndDelete({id:req.body.id})
-    
+    console.log(req.body);
+
+    Usuario.deleteOne({id:req.body.id})
     .then(doc=>{
         console.log("Dato eliminado", doc);
         res.json({response: "Eliminado"});
@@ -200,8 +200,8 @@ app.delete('/deleteUsua', (req, res) =>{
 //Eliminar un restaurante
 app.delete('/deleteRes', (req, res) =>{
     console.log(req);
-    Restaurante.findByIdAndDelete({id:req.body.id})
-    
+
+    Restaurante.deleteOne({id:req.body.id})
     .then(doc=>{
         console.log("Dato eliminado", doc);
         res.json({response: "Eliminado"});

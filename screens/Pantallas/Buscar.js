@@ -12,7 +12,7 @@ const Buscar = ({ navigation }) => {
             <TextInput placeholde = "Hola" keyboardType={"default"} style={styles.forminput} onChangeText={(foo) => { setBuscar(foo); }} value={buscar}/>
             <Pressable style={styles.Enviar} onPress={() => {
                 console.log(buscar);
-                fetch('http://localhost:3000/busProd', {
+                fetch('http://192.168.1.76:3000/busProd', {
                     method: 'POST',
                     headers: {
                         'Content-Type': "application/json"

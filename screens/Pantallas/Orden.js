@@ -27,7 +27,6 @@ const Orden = ({ route, navigation }) => {
     if (item === undefined) return;
     Carrito.addItem(item);
 
-    console.log(item);
     navigation.navigate("Carrito");
   };
 

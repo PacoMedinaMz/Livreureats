@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Platform} from "react-native"
 import { TextInput, Card } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
+import ip from '../ipCrud';
 
 const altaProducto = ({ navigation }) => {
 
@@ -78,7 +79,7 @@ const altaProducto = ({ navigation }) => {
 
         console.log("Objeto:", JSON.stringify(data));
 
-        const response = fetch("http://192.168.2.2:3000/insPro", {
+        const response = fetch(`${ip.ip}insPro`, {
             method: "POST",
             headers: {
                 "Content-Type":

@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, ActivityIndicator, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
+import ip from '../ipCrud';
 
 const BajaProducto = ({ navigation }) => {
-    var url="http://192.168.2.2:3000/busProductos";
+    var url=`${ip.ip}busProductos`;
     
     
     const [loading,setLoading]=React.useState(false);
@@ -43,7 +44,7 @@ const BajaProducto = ({ navigation }) => {
         );
     }
     async function apiEliminar(){
-        await fetch(`http://192.168.2.2:3000/delProd/${id}`)
+        await fetch(`${ip.ip}delProd/${id}`)
         .then((res) => res.json())
         .then((json) => {
             setProductos(json.data);

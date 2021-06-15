@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
+import ip from "../ipCrud"
 
 const actProducto = ({ navigation }) => {
 
@@ -20,7 +21,7 @@ const actProducto = ({ navigation }) => {
         
     },[]);
     async function api(){
-        await fetch("http://192.168.2.2:3000/busProductos")
+        await fetch(`${ip.ip}busProductos`)
         .then((res) => res.json())
         .then((json) => {
             setProductos(json.data);
@@ -55,7 +56,7 @@ const actProducto = ({ navigation }) => {
 
         console.log("Objeto:", JSON.stringify(data));
 
-        const response = fetch(`http://192.168.2.2:3000/actProd/${id}`, {
+        const response = fetch(`${ip.ip}actProd/${id}`, {
             method: "POST",
             headers: {
                 "Content-Type":

@@ -25,7 +25,7 @@ conexion.once('error', (err)=>{
 const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String, 
     apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String, id:String}, 'usuario');
 
-    const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
+const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
         precio:String, idShort:String, restaurante:String}, 'producto');
 
 const Pedido = mongoose.model('pedido', {id:String, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
@@ -324,10 +324,9 @@ app.post('/actProd/:id', (req, res) =>{
         idShort: req.body.id,
         restaurante: req.body.restaurante
     });
-    Producto.updateOne({idShort:id}, {$set:{nombre_producto:producto.nombre_producto,
+    Producto.updateOne({idShort:producto.idShort}, {$set:{nombre_producto:producto.nombre_producto,
     descripcion:producto.descripcion, categoria:producto.categoria,
     precio:producto.precio, restaurante:producto.restaurante}})
-    
     .then(doc=>{
         console.log("Dato actualizado", doc);
         res.json({response: "ok"});
@@ -383,7 +382,7 @@ app.post('/actPersonal/:id', (req, res) =>{
     });
     Personal.updateOne({idShort:id}, {$set:{nombre:personal.nombre,
     apellidoPat:personal.apellidoPat, apellidoMat:personal.apellidoMat,
-    sexo:personal.sexo,}})
+    sexo:personal.sexo}})
     
     .then(doc=>{
         console.log("Dato actualizado", doc);

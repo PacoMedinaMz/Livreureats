@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
+import ip from '../ipCrud'
 
 const BajaPersonal = ({ navigation }) => {
 
@@ -14,7 +15,7 @@ const BajaPersonal = ({ navigation }) => {
         
     },[]);
     async function api(){
-        await fetch("http://192.168.2.2:3000/busPersonal")
+        await fetch(`${ip.ip}busPersonal`)
         .then((res) => res.json())
         .then((json) => {
             setPersonal(json.data);
@@ -36,7 +37,7 @@ const BajaPersonal = ({ navigation }) => {
         );
     }
     async function apiEliminar(){
-        await fetch(`http://192.168.2.2:3000/delPersonal/${id}`)
+        await fetch(`${ip.ip}delPersonal/${id}`)
         .then((res) => res.json())
         .then((json) => {
             setPersonal(json.data);

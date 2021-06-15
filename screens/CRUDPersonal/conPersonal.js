@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, } from "re
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 import CardPer from '../Pantallas/CardPer';
 import { FlatList } from 'react-native-gesture-handler';
+import ip from '../ipCrud';
 //import { personal } from '../Pantallas/data';
 
 const conPersonal = ({ navigation }) => {
@@ -13,7 +14,7 @@ const conPersonal = ({ navigation }) => {
         
     },[]);
     async function api(){
-        await fetch("http://192.168.2.2:3000/busPersonal")
+        await fetch(`${ip.ip}busPersonal`)
         .then((res) => res.json())
         .then((json) => {
             setPersonal(json.data);

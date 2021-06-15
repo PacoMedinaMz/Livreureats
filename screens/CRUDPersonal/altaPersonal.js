@@ -72,7 +72,7 @@ const altaPersonal = ({ navigation }) => {
 
         console.log("Objeto:", JSON.stringify(data));
 
-        const response = fetch("http://192.168.2.2:3000/insPersonal", {
+        const response = fetch(`${ip.ip}insPersonal`, {
             method: "POST",
             headers: {
                 "Content-Type":

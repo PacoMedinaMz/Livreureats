@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, Picker, FlatList } from "react-native"
 import { TextInput, Card } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
+import ip from '../ipCrud';
 
 const actPersonal = ({ navigation }) => {
 
@@ -28,7 +29,7 @@ const actPersonal = ({ navigation }) => {
     }, []);
 
     async function api(){
-        await fetch("http://192.168.2.2:3000/busPersonal")
+        await fetch(`${ip.ip}busPersonal`)
         .then((res) => res.json())
         .then((json) => {
             setPersonal(json.data);
@@ -79,7 +80,7 @@ const actPersonal = ({ navigation }) => {
 
         console.log("Objeto:", JSON.stringify(data));
 
-        const response = fetch(`http://192.168.2.2:3000/actPersonal/${id}`, {
+        const response = fetch(`${ip.ip}actPersonal/${id}`, {
             method: "POST",
             headers: {
                 "Content-Type":

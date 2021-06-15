@@ -26,7 +26,7 @@ const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String,
     apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String}, 'usuario');
 
 const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
-    precio:String, restaurante:string}, 'producto');
+    precio:String, restaurante:String}, 'producto');
 
 app.get('/', (req, res)=>{
     res.send("Hola");
@@ -86,21 +86,15 @@ app.post('/insPro', (req, res) =>{
 
 app.post('/buscar', (req, res) =>{
     console.log(req);
-
-    const usuario = new Usuario({
-        
-    });
-    //Mongoose
     
-    usuario.save()
+    Producto.find({ nombre_producto: req.body.buscar, restaurante: req.body.restaurante})
     .then(doc=>{
-        console.log("Dato insertado", doc);
-        console.log(req.body);
-        //console.log(json);
-        res.json({response: "exito"});
+        console.log("Shi che puedo");
+        res.json({response: doc});
     }).catch(err =>{
         res.json({response: "error"});
         console.log("Error: ", err.message);
+        console.log("No che pudo");
     });
 });
 

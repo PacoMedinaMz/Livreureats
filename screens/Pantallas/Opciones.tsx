@@ -5,6 +5,7 @@ import InputMessage from "../../components/Chat/InputMessage";
 import Mensaje from "../../components/Chat/Mensaje";
 import io from "socket.io-client";
 import * as Device from "expo-device";
+import PDFFactura from "../Pantallas/PDFFactura";
 
 const Opciones = () => {
   const [mensajes, setMensajes] = React.useState([]);
@@ -58,6 +59,7 @@ const Opciones = () => {
         <Text style={styles.Title}>Soporte en vivo</Text>
       </View>
 
+      <PDFFactura />
       <ScrollView
         ref={refScroll}
         style={{

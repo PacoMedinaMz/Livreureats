@@ -46,7 +46,10 @@
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
-    "socket.io-client": "^4.1.2"
+    "socket.io-client": "^4.1.2",
+    "expo-print": "~10.1.0",
+    "expo-sharing": "~9.1.2",
+    "expo-media-library": "~12.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

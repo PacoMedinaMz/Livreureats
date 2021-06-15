@@ -17,6 +17,11 @@ import Cardx from "./Cardx";
 const Carrito = ({ navigation }) => {
   const [refreshPage, setRefreshPage] = React.useState("");
   const [uri, setUri] = React.useState("");
+  const [productos, setProductos] = React.useState([]);
+
+  React.useEffect(() => {
+    setProductos(items);
+  }, []);
 
   function realizarPedido() {
     if (!items || items.length <= 0) {
@@ -117,7 +122,7 @@ const Carrito = ({ navigation }) => {
             Para remover, presiona el producto
           </Text>
           <View style={{ width: "100%", height: "100%", alignSelf: "center" }}>
-            {items.map((item, i) => {
+            {productos.map((item, i) => {
               return [
                 <Text
                   key={i}
@@ -125,6 +130,7 @@ const Carrito = ({ navigation }) => {
                     removeItem(item.id);
                     setRefreshPage("refresh");
                     alert("Producto Removido");
+                    setProductos(items);
                   }}
                 >
                   <Cardx itemData={item} />

@@ -1,21 +1,11 @@
 export var items: any = [];
 
 export function addItem(item: any) {
-  items[item.id + ""] = item;
+  items.push(item);
 }
 
 export function removeItem(id: any) {
-  delete items[id + ""];
-
-  let limpiar = true;
-  items.map((item: any) => {
-    if (item !== undefined) {
-      limpiar = false;
-    }
-  });
-  if (limpiar) {
-    items = [];
-  }
+  items = items.filter((item: any) => item.id !== id);
 }
 
 export default { addItem, removeItem };

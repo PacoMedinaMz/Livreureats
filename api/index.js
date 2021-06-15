@@ -26,7 +26,7 @@ const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String,
     apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String, id:String}, 'usuario');
 
 const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
-        precio:String, idShort:String, restaurante:String}, 'producto');
+        precio:String, id:String, restaurante:String}, 'producto');
 
 const Pedido = mongoose.model('pedido', {id:String, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
 
@@ -80,7 +80,7 @@ app.post('/insPro', (req, res) =>{
         descripcion: req.body.descripcion,
         categoria: req.body.categoria,
         precio: req.body.precio,
-        idShort: req.body.id,
+        id: req.body.id,
         restaurante: req.body.restaurante
     });
     
@@ -300,7 +300,7 @@ app.get('/delProd/:id', (req, res) =>{
     id.toString();
     console.log(id);
 
-    Producto.remove({idShort:id})
+    Producto.remove({id:id})
     
     .then(doc=>{
         console.log("Dato eliminado", doc);
@@ -321,10 +321,10 @@ app.post('/actProd/:id', (req, res) =>{
         descripcion: req.body.descripcion,
         categoria: req.body.categoria,
         precio: req.body.precio,
-        idShort: req.body.id,
+        id: req.body.id,
         restaurante: req.body.restaurante
     });
-    Producto.updateOne({idShort:producto.idShort}, {$set:{nombre_producto:producto.nombre_producto,
+    Producto.updateOne({id:producto.idShort}, {$set:{nombre_producto:producto.nombre_producto,
     descripcion:producto.descripcion, categoria:producto.categoria,
     precio:producto.precio, restaurante:producto.restaurante}})
     .then(doc=>{
@@ -345,7 +345,7 @@ app.post('/insPersonal', (req, res) =>{
     }
 
     const personal = new Personal({
-        idShort: req.body.idShort,
+        id: req.body.idShort,
         nombre: req.body.nombre,
         apellidoPat: req.body.apellidoPat,
         apellidoMat:req.body.apellidoMat,
@@ -374,13 +374,13 @@ app.post('/actPersonal/:id', (req, res) =>{
     console.log(id);
     
     const personal = new Personal({
-        idShort: req.body.id,
+        id: req.body.id,
         nombre: req.body.nombre,
         apellidoPat: req.body.apellidoPat,
         apellidoMat:req.body.apellidoMat,
         sexo: req.body.sexo
     });
-    Personal.updateOne({idShort:id}, {$set:{nombre:personal.nombre,
+    Personal.updateOne({id:id}, {$set:{nombre:personal.nombre,
     apellidoPat:personal.apellidoPat, apellidoMat:personal.apellidoMat,
     sexo:personal.sexo}})
     
@@ -412,7 +412,7 @@ app.get('/delPersonal/:id', (req, res) =>{
     id.toString();
     console.log(id);
 
-    Personal.remove({idShort:id})
+    Personal.remove({id:id})
     
     .then(doc=>{
         console.log("Dato eliminado", doc);

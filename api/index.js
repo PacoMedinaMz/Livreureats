@@ -23,10 +23,10 @@ conexion.once('error', (err)=>{
 
 //Definicion
 const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String, 
-    apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String}, 'usuario');
+    apellidoPat:String, fecha:Date,sexo:String,tarjeta:String,dir:String,pass:String,  id:Number}, 'usuario');
 
 const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
-    precio:String, restaurante:String}, 'producto');
+    precio:String, restaurante:String, id:Number}, 'producto');
 
 app.get('/', (req, res)=>{
     res.send("Hola");
@@ -37,6 +37,7 @@ app.post('/insUsu', (req, res) =>{
     console.log(req);
 
     const usuario = new Usuario({
+        id:req.body.id,
         nombre: req.body.nombre,
         apellidoMat:req.body.apellidoMat,
         apellidoPat:req.body.apellidoPat,
@@ -64,6 +65,7 @@ app.post('/insPro', (req, res) =>{
     console.log(req);
 
     const producto = new Producto({
+        id:req.body.id,
         nombre_producto: req.body.nombre_producto, 
         descripcion: req.body.descripcion,
         categoria: req.body.categoria,
@@ -114,7 +116,7 @@ app.post('/busProd', (req, res) =>{
 
 app.delete('/deleteProd', (req, res) =>{
     console.log(req);
-    Producto.findByIdAndDelete({_id:req.body.id})
+    Producto.findByIdAndDelete({id:req.body.id})
     
     .then(doc=>{
         console.log("Dato eliminado", doc);
@@ -127,7 +129,7 @@ app.delete('/deleteProd', (req, res) =>{
 
 app.delete('/deleteUsua', (req, res) =>{
     console.log(req);
-    Usuario.findByIdAndDelete({_id:req.body.id})
+    Usuario.findByIdAndDelete({id:req.body.id})
     
     .then(doc=>{
         console.log("Dato eliminado", doc);

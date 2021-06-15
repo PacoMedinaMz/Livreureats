@@ -28,6 +28,9 @@ const Usuario = mongoose.model('usuario',{nombre:String, apellidoMat:String,
 const Producto = mongoose.model('producto', {nombre_producto:String, descripcion:String, categoria:String,
     precio:String, restaurante:String, id:Number}, 'producto');
 
+const Pedido = mongoose.model('pedido', {id:Number, fecha:String, productos:Object, costoEnvio:Number}, 'pedido');
+    
+
 app.get('/', (req, res)=>{
     res.send("Hola");
 
@@ -140,6 +143,29 @@ app.delete('/deleteUsua', (req, res) =>{
     });
 });
 
+app.post('/carrito', (req, res) =>{
+    console.log(req);
+    let now= new Date();
+
+    const pedido = new Pedido({
+        id:Math.round(Math.random() * (10000 - 1) + 1), 
+        fecha: now.toDateString(), 
+        productos:req.body.productos, 
+        costoEnvio:Math.round(Math.random() * (30 - 10) + 10)
+    });
+    //Mongoose
+  
+    pedido.save()
+    .then(doc=>{
+        console.log("Dato insertado", doc);
+        console.log(req.body);
+        //console.log(json);
+        res.json({response: "exito"});
+    }).catch(err =>{
+        res.json({response: "error"});
+        console.log("Error: ", err.message);
+    });
+});
 
 app.listen(port, ()=>{
     console.log(`Servidor funcionando en el puerto:  ${port}`);
